@@ -1,4 +1,4 @@
-import ApiError from "../models/ApiError";
+import ApiError from "../../../models/ApiError";
 
 export default class BadRequestError extends Error {
     errors: ApiError[];

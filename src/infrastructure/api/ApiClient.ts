@@ -8,7 +8,7 @@ import NotFoundError from "./exceptions/NotFoundError";
 import UnexpectedError from "./exceptions/UnexpectedError";
 import { ClassConstructor, classToPlain, instanceToPlain, plainToClass } from "class-transformer";
 import { camelCase, paramCase, snakeCase } from "change-case";
-import ApiError from "./models/ApiError";
+import ApiError from "../../models/ApiError";
 import HttpMethod from "../../extension/HttpMethod";
 import joinUrl from 'url-join';
 import * as CaseConverter from '../../utils/CaseConverter';
