@@ -2,17 +2,18 @@ import IdentityServerClient from "./IdentityServerClient";
 import ApiConfig from './config';
 import UploadModel from "../../../models/upload/UploadModel";
 import UplaodedFile from "../../../models/upload/UploadedFile";
+import MediaType from "../../../extension/MediaType";
+import IUploader from "../../IUploader";
 
 const endpoints = ApiConfig.endpoints.resources;
 
-export default class ResourcesClient extends IdentityServerClient {
+export default class ResourcesClient extends IdentityServerClient implements IUploader {
     constructor() {
         super(endpoints.base);
     }
     
     async upload(model: UploadModel): Promise<UplaodedFile> {
         return this._apiClient.post({
-            url: endpoints.base,
             body: model,
             isFormData: true
         });

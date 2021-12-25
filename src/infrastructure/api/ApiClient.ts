@@ -31,7 +31,8 @@ export interface RequestOptions {
 }
 
 export interface ApiCallOptions {
-    url: string,
+    url?: string,
+    contentType?: string,
     routeParams?: object,
     query?: object,
     body?: any,
@@ -81,11 +82,13 @@ export default class ApiClient {
             url: this.requestUrl(callOptions.url, callOptions.routeParams, callOptions.query),
             credentials: callOptions.credentials ?? 'omit',
             accept: callOptions.accept ?? MediaType.json,
-            body: body
+            body: body,
+            contentType: callOptions.contentType
         }
     }
 
-    private requestUrl(url: string, params: any, query: any): string {
+    private requestUrl(url: string|undefined, params: any, query: any): string {
+        url ??= '';
         if (params != null && typeof params == 'object') {
             url = this.applyParams(url, params);
         }
@@ -117,11 +120,15 @@ export default class ApiClient {
     private requestBody(data: any, isFormData: boolean = false) {
         let result = null;
         if (data != null) {
-            const plain = instanceToPlain(data);
-            const converted = CaseConverter.convert(plain, Naming.SNAKE_CASE);
-            Formatter.format(converted);
-            
-            result = isFormData ? this.formDataBody(converted) : JSON.stringify(converted);
+            if(isFormData) {
+                result = this.formDataBody(data);
+            } else {
+                const plain = instanceToPlain(data);
+                const converted = CaseConverter.convert(plain, Naming.SNAKE_CASE);
+                Formatter.format(converted);
+                
+                result = JSON.stringify(converted);
+            }
         }
 
         return result;
@@ -140,15 +147,12 @@ export default class ApiClient {
             mode: 'cors',
             credentials: options.credentials,
             headers: {
-                'access-control-allow-origin': '*',
-                'access-control-allow-methods': '*',
-                'access-control-allow-headers': '*',
                 'accept': options.accept ?? MediaType.json,
-                'content-type': options.contentType ?? MediaType.json,
+                ...this.contentTypeHeader(options),
                 ...this.authHeader()
-            }
+            },
+            body: options.body
         });
-        console.log(options.method ,response.status);
         return response.ok 
             ? this.processSuccessfulResponse(response, targetClass) 
             : this.processErrorResponse(response, options, targetClass);
@@ -221,7 +225,8 @@ export default class ApiClient {
                 url: TokenStorage.RefreshTokenUrl,
                 credentials: 'include',
                 method: HttpMethod.put,
-                accept: MediaType.json
+                accept: MediaType.json,
+                preventTokenRefresh: true
             });
 
             TokenStorage.saveAccessToken(accessToken);
@@ -253,6 +258,15 @@ export default class ApiClient {
         const result: any = {};
         if(accessToken != null) {
             result.authorization = `${TokenStorage.TokenType} ${accessToken}`
+        }
+
+        return result;
+    }
+
+    private contentTypeHeader(options: RequestOptions): object {
+        const result: any = {};
+        if(options.contentType != null) {
+            result['content-type'] = options.contentType;
         }
 
         return result;

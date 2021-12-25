@@ -5,6 +5,7 @@ import LoginModel from "../../../models/auth/LoginModel";
 import PasswordResetInitModel from "../../../models/password-reset/PasswordResetInitModel";
 import PasswordResetTokenResult from "../../../models/password-reset/PasswordResetTokenResult";
 import PasswordResetModel from "../../../models/password-reset/PasswordResetModel";
+import MediaType from "../../../extension/MediaType";
 
 const endpoints = ApiConfig.endpoints.auth;
 
@@ -17,7 +18,8 @@ export default class AuthClient extends IdentityServerClient {
         return this._apiClient.post(
             {
                 url: endpoints.login,
-                body: model
+                body: model,
+                contentType: MediaType.json
             }, 
             AuthResult
         );
@@ -27,7 +29,8 @@ export default class AuthClient extends IdentityServerClient {
         return this._apiClient.post(
             {
                 url: endpoints.initPasswordReset,
-                body: model
+                body: model,
+                contentType: MediaType.json
             }, 
             PasswordResetTokenResult
         );
@@ -36,7 +39,8 @@ export default class AuthClient extends IdentityServerClient {
     async resetPassword(model: PasswordResetModel) {
         return this._apiClient.post({
             url: endpoints.passwordReset,
-            body: model
+            body: model,
+            contentType: MediaType.json
         })
     }
 }

@@ -1,14 +1,26 @@
-import { createMapper } from '@automapper/core';
+import { createMapper, mapFrom, mapWith } from '@automapper/core';
 import { classes } from '@automapper/classes';
 import ProfileSettings from '../models/profile/ProfileSettings';
-import ProfileSettingsUpdateModel from '../models/update/ProfileSettingsUpdateModel';
+import SettingsUpdateModel from '../models/update/SettingsUpdateModel';
 import User from '../models/profile/User';
-import UserUpdateModel from '../models/update/UserUpdateModel';
+import ProfileUpdateModel from '../models/update/ProfileUpdateModel';
+import UserSettingsUpdateModel from '../models/update/UserSettingsUpdateModel';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
     pluginInitializer: classes
 });
 
-mapper.createMap(ProfileSettings, ProfileSettingsUpdateModel);
-mapper.createMap(User, UserUpdateModel);
+mapper.createMap(ProfileSettings, SettingsUpdateModel);
+mapper.createMap(User, ProfileUpdateModel);
+mapper.createMap(User, SettingsUpdateModel)
+    .forMember(
+        (dest) => dest.nightMode,
+        mapFrom((src) => src.settings?.nightMode)
+    );
+
+mapper.createMap(User, UserSettingsUpdateModel)
+    .forMember(
+        (dest) => dest.settings,
+        mapWith(SettingsUpdateModel, ProfileSettings, (src) => src.settings)
+    );

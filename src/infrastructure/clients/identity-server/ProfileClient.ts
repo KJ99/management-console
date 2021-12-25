@@ -2,9 +2,12 @@ import IdentityServerClient from "./IdentityServerClient";
 import ApiConfig from './config';
 import User from "../../../models/profile/User";
 import Profile from "../../../models/profile/Profile";
-import UserUpdateModel from "../../../models/update/UserUpdateModel";
+import ProfileUpdateModel from "../../../models/update/ProfileUpdateModel";
 import * as PatchUtil from '../../../utils/PatchUtil';
 import ChangePasswordModel from "../../../models/profile/ChangePasswordModel";
+import SettingsUpdateModel from "../../../models/update/SettingsUpdateModel";
+import UserSettingsUpdateModel from "../../../models/update/UserSettingsUpdateModel";
+import MediaType from "../../../extension/MediaType";
 
 const endpoints = ApiConfig.endpoints.profile;
 
@@ -14,25 +17,35 @@ export default class ProfileClient extends IdentityServerClient {
     }
 
     async getCurrentUserProfile(): Promise<User> {
-        return this._apiClient.get({ url: endpoints.base }, User);
+        return this._apiClient.get({}, User);
     }
 
     async getProfile(id: string): Promise<Profile> {
         return this._apiClient.get({ url: endpoints.particular, routeParams: { id } }, Profile);
     }
 
-    async updateProfile(original: User, updated: UserUpdateModel) {
+    async updateProfile(original: User, updated: ProfileUpdateModel) {
         return this._apiClient.patch({
-            url: endpoints.particular,
-            routeParams: { id: original.id },
-            body: PatchUtil.prepare(original, updated)
-        })
+            body: PatchUtil.prepare(original, updated),
+            contentType: MediaType.json
+        });
+    }
+
+    async updateSettings(original: User, updated: SettingsUpdateModel) {
+        const model =  new UserSettingsUpdateModel();
+        model.settings = updated;
+
+        return this._apiClient.patch({
+            body: PatchUtil.prepare(original, model),
+            contentType: MediaType.json
+        });
     }
 
     async updatePassword(model: ChangePasswordModel) {
         return this._apiClient.put({
             url: endpoints.password,
-            body: model
+            body: model,
+            contentType: MediaType.json
         })
     }
 }

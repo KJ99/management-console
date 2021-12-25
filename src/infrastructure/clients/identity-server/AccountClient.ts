@@ -6,6 +6,7 @@ import ResendVerificationModel from "../../../models/account/ResendVerificationM
 import VerifyAccountModel from "../../../models/account/VerifyAccountModel";
 import CheckAvailabilityModel from "../../../models/account/CheckAvailabilityModel";
 import AvailabilityResult from "../../../models/account/AvailabilityResult";
+import MediaType from "../../../extension/MediaType";
 
 const endpoints = ApiConfig.endpoints.account;
 
@@ -16,22 +17,24 @@ export default class AccountClient extends IdentityServerClient {
 
     async createAccount(model: AccountCreateModel): Promise<VerificationTokenResult> {
         return this._apiClient.post({
-            url: endpoints.base,
-            body: model
+            body: model,
+            contentType: MediaType.json
         });
     }
 
     async resendVerification(model: ResendVerificationModel): Promise<VerificationTokenResult> {
         return this._apiClient.post({
             url: endpoints.resendVerification,
-            body: model
+            body: model,
+            contentType: MediaType.json
         });
     }
 
     async verifyAccount(model: VerifyAccountModel) {
         return this._apiClient.put({
             url: endpoints.verify,
-            body: model
+            body: model,
+            contentType: MediaType.json
         })
     }
 
