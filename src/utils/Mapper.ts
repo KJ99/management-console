@@ -1,10 +1,16 @@
 import { createMapper, mapFrom, mapWith } from '@automapper/core';
 import { classes } from '@automapper/classes';
 import ProfileSettings from '../models/profile/ProfileSettings';
-import SettingsUpdateModel from '../models/update/SettingsUpdateModel';
 import User from '../models/profile/User';
-import ProfileUpdateModel from '../models/update/ProfileUpdateModel';
-import UserSettingsUpdateModel from '../models/update/UserSettingsUpdateModel';
+import ProfileUpdateModel from '../models/profile/ProfileUpdateModel';
+import UserSettingsUpdateModel from '../models/profile/UserSettingsUpdateModel';
+import SettingsUpdateModel from '../models/profile/SettingsUpdateModel';
+import Team from '../models/team/Team';
+import TeamUpdateModel from '../models/team/TeamUpdateModel';
+import TeamSettings from '../models/team/TeamSettings';
+import TeamSettingsUpdateModel from '../models/team/TeamSettingsUpdateModel';
+import Member from '../models/member/Member';
+import MemberUpdateModel from '../models/member/MemberUpdateModel';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
@@ -23,4 +29,18 @@ mapper.createMap(User, UserSettingsUpdateModel)
     .forMember(
         (dest) => dest.settings,
         mapWith(SettingsUpdateModel, ProfileSettings, (src) => src.settings)
+    );
+
+mapper.createMap(Team, TeamUpdateModel)
+    .forMember(
+        (dest) => dest.settings,
+        mapWith(TeamSettingsUpdateModel, TeamSettings, (src) => src.settings)
+    );
+
+mapper.createMap(TeamSettings, TeamSettingsUpdateModel);
+
+mapper.createMap(Member, MemberUpdateModel)
+    .forMember(
+        (dest) => dest.roles,
+        mapFrom((src) => src.roles?.map((role) => role.code) ?? [])
     );

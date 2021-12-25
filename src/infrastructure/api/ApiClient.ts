@@ -87,8 +87,11 @@ export default class ApiClient {
         }
     }
 
-    private requestUrl(url: string|undefined, params: any, query: any): string {
-        url ??= '';
+    private requestUrl(path: string|undefined, params: any, query: any): string {
+        const { host, baseUrl } = this._options;
+        const base = baseUrl != null ? joinUrl(host, baseUrl) : host;
+        let url = joinUrl(base, path ?? '');
+
         if (params != null && typeof params == 'object') {
             url = this.applyParams(url, params);
         }
@@ -96,10 +99,7 @@ export default class ApiClient {
             url = joinUrl(url, this.queryString(query));
         }
 
-        const { host, baseUrl } = this._options;
-        const base = baseUrl != null ? joinUrl(host, baseUrl) : host;
-
-        return joinUrl(base, url);
+        return url;
     }
 
     private queryString(query: any): string {

@@ -2,12 +2,12 @@ import IdentityServerClient from "./IdentityServerClient";
 import ApiConfig from './config';
 import User from "../../../models/profile/User";
 import Profile from "../../../models/profile/Profile";
-import ProfileUpdateModel from "../../../models/update/ProfileUpdateModel";
+import ProfileUpdateModel from "../../../models/profile/ProfileUpdateModel";
 import * as PatchUtil from '../../../utils/PatchUtil';
 import ChangePasswordModel from "../../../models/profile/ChangePasswordModel";
-import SettingsUpdateModel from "../../../models/update/SettingsUpdateModel";
-import UserSettingsUpdateModel from "../../../models/update/UserSettingsUpdateModel";
 import MediaType from "../../../extension/MediaType";
+import SettingsUpdateModel from "../../../models/profile/SettingsUpdateModel";
+import UserSettingsUpdateModel from "../../../models/profile/UserSettingsUpdateModel";
 
 const endpoints = ApiConfig.endpoints.profile;
 

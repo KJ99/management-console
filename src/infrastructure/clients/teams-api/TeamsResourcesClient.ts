@@ -1,13 +1,13 @@
-import IdentityServerClient from "./IdentityServerClient";
 import ApiConfig from './config';
 import UploadModel from "../../../models/upload/UploadModel";
 import UplaodedFile from "../../../models/upload/UploadedFile";
 import MediaType from "../../../extension/MediaType";
 import IUploader from "../../IUploader";
+import TeamsApiClient from './TeamsApiClient';
 
 const endpoints = ApiConfig.endpoints.resources;
 
-export default class ResourcesClient extends IdentityServerClient implements IUploader {
+export default class TeamsResourcesClient extends TeamsApiClient implements IUploader {
     constructor() {
         super(endpoints.base);
     }
