@@ -11,6 +11,10 @@ import TeamSettings from '../models/team/TeamSettings';
 import TeamSettingsUpdateModel from '../models/team/TeamSettingsUpdateModel';
 import Member from '../models/member/Member';
 import MemberUpdateModel from '../models/member/MemberUpdateModel';
+import Planning from '../models/planning/Planning';
+import PlanningUpdateModel from '../models/planning/PlanningUpdateModel';
+import PlanningItem from '../models/planning/PlanningItem';
+import PlanningItemUpdateModel from '../models/planning/PlanningItemUpdateModel';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
@@ -44,3 +48,6 @@ mapper.createMap(Member, MemberUpdateModel)
         (dest) => dest.roles,
         mapFrom((src) => src.roles?.map((role) => role.code) ?? [])
     );
+
+mapper.createMap(Planning, PlanningUpdateModel);
+mapper.createMap(PlanningItem, PlanningItemUpdateModel);
