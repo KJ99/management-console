@@ -15,6 +15,14 @@ import Planning from '../models/planning/Planning';
 import PlanningUpdateModel from '../models/planning/PlanningUpdateModel';
 import PlanningItem from '../models/planning/PlanningItem';
 import PlanningItemUpdateModel from '../models/planning/PlanningItemUpdateModel';
+import Retrospective from '../models/retrospective/Retrospective';
+import RetrospectiveUpdateModel from '../models/retrospective/RetrospectiveUpdateModel';
+import Answer from '../models/retrospective/Answer';
+import AnswerUpdateModel from '../models/retrospective/AnswerUpdateModel';
+import ActionItem from '../models/retrospective/ActionItem';
+import ActionItemUpdateModel from '../models/retrospective/ActionItemUpdateModel';
+import RetroConfig from '../models/retrospective/RetroConfig';
+import RetroConfigUpdateModel from '../models/retrospective/RetroConfigUpdateModel';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
@@ -51,3 +59,19 @@ mapper.createMap(Member, MemberUpdateModel)
 
 mapper.createMap(Planning, PlanningUpdateModel);
 mapper.createMap(PlanningItem, PlanningItemUpdateModel);
+mapper.createMap(RetroConfig, RetroConfigUpdateModel)
+    .forMember(
+        (dest) => dest.votes,
+        mapFrom((src) => src.memberVotes)
+    );
+mapper.createMap(Retrospective, RetrospectiveUpdateModel)
+    .forMember(
+        (dest) => dest.config,
+        mapWith(RetroConfigUpdateModel, RetroConfig, (src) => src.configuration)
+    );
+mapper.createMap(Answer, AnswerUpdateModel)
+    .forMember(
+        (dest) => dest.childrenIds,
+        mapFrom((src) => src.children?.map((child) => child.id) ?? [])
+    );
+mapper.createMap(ActionItem, ActionItemUpdateModel);

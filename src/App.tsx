@@ -1,11 +1,6 @@
 import { createTheme, CssBaseline, StyledEngineProvider, Theme, ThemeOptions, ThemeProvider, Typography } from "@mui/material"
 import AuthClient from "./infrastructure/clients/identity-server/AuthClient";
-import PlanningItemsClient from "./infrastructure/clients/planning-poker/PlanningItemsClient";
-import PlanningsClient from "./infrastructure/clients/planning-poker/PlanningsClient";
-import MembersClient from "./infrastructure/clients/teams-api/MembersClient";
-import PlanningItemsImportModel from "./models/planning/PlanningItemsImportModel";
-import PlanningItemUpdateModel from "./models/planning/PlanningItemUpdateModel";
-import PlanningUpdateModel from "./models/planning/PlanningUpdateModel";
+import ActionItemsClient from "./infrastructure/clients/retro-helper/ActionItemsClient";
 import { SeaLight } from "./themes";
 
 const App = () => {
