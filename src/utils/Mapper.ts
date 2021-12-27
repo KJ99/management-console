@@ -23,6 +23,8 @@ import ActionItem from '../models/retrospective/ActionItem';
 import ActionItemUpdateModel from '../models/retrospective/ActionItemUpdateModel';
 import RetroConfig from '../models/retrospective/RetroConfig';
 import RetroConfigUpdateModel from '../models/retrospective/RetroConfigUpdateModel';
+import DailyConfig from '../models/daily/DailyConfig';
+import DailyConfigUpdateModel from '../models/daily/DailyConfigUpdateModel';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
@@ -75,3 +77,4 @@ mapper.createMap(Answer, AnswerUpdateModel)
         mapFrom((src) => src.children?.map((child) => child.id) ?? [])
     );
 mapper.createMap(ActionItem, ActionItemUpdateModel);
+mapper.createMap(DailyConfig, DailyConfigUpdateModel);
