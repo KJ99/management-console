@@ -42,7 +42,7 @@ const light: ThemeOptions = {
     palette: {
         background: {
             default: '#f6f7f8',
-            paper: '#fafbfc'
+            paper: '#fff'
         },
         text: {
             primary: '#222',

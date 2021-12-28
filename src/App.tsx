@@ -1,4 +1,5 @@
 import { createTheme, CssBaseline, StyledEngineProvider, ThemeProvider } from "@mui/material"
+import TopBar, { MenuTrigger } from "./components/TopBar";
 import { AuthProvider } from "./contexts/AuthContext";
 import { StringsProvider } from "./contexts/StringsContext";
 import { SeaLight } from "./themes";
@@ -9,7 +10,9 @@ const App = () => {
             <StyledEngineProvider injectFirst>
                 <CssBaseline>
                     <StringsProvider>
-                        <AuthProvider></AuthProvider>
+                        <AuthProvider>
+                            <TopBar />
+                        </AuthProvider>
                     </StringsProvider>
                 </CssBaseline>
             </StyledEngineProvider>
