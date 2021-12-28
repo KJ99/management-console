@@ -6,6 +6,12 @@ export const RefreshTokenUrl = process.env.REACT_APP_REFRESH_TOKEN_URL ?? '';
 
 export const getAccessToken: () => string | null = () => localStorage.getItem(TokenKey);
 
-export const saveAccessToken = (token: string) => localStorage.getItem(TokenKey);
+export const saveAccessToken = (token?: string) => {
+    if (token != null) {
+        localStorage.setItem(TokenKey, token);
+    } else {
+        localStorage.removeItem(TokenKey);
+    }
+};
 
 export const clearAccessToken = () => localStorage.removeItem(TokenKey);
