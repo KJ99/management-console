@@ -1,4 +1,4 @@
-import { ReactElement } from "react"
+import { ReactElement, useEffect } from "react"
 
 export type Props = {
     children: ReactElement,
@@ -7,6 +7,10 @@ export type Props = {
 }
 
 const ConditionalView = ({ condition, children, otherwise }: Props) => {
+    // useEffect(() => console.log('condi'), [condition]);
+    // useEffect(() => console.log('child'), [children]);
+    // useEffect(() => console.log('other'), [otherwise]);
+    
     return condition 
         ? (
             <>

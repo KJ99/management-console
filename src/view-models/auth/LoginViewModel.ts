@@ -15,10 +15,15 @@ import { processFormError } from "../../utils/ErrorProcessor";
 import { mapper } from "../../utils/Mapper";
 import { ViewModelProps } from "../ViewModelProps";
 import paths from '../../routings/paths.json';
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+
+const getReturnUrl = (state: any, alternative: string): string => {
+    return typeof state?.returnUrl == 'string' ? state.returnUrl : alternative; 
+}
 
 const LoginViewModel = ({ children }: ViewModelProps) => {
     const { strings } = useContext(StringsContext);
+    const location = useLocation();
     const { enqueueSnackbar } = useSnackbar();
     const [verificationToken, setVerificationToken] = useState<string|undefined>();
     const [verificationResending, setVerificationResending] = useState<boolean>(false);
@@ -34,7 +39,8 @@ const LoginViewModel = ({ children }: ViewModelProps) => {
             client.login(model)
                 .then((result) => {
                     authenticate(result);
-                    navigate(paths.app.index)
+                    const target = getReturnUrl(location.state, paths.app.index);
+                    navigate(target)
                 })
                 .catch((e) => {
                     if(e instanceof BadRequestError) {
@@ -48,7 +54,7 @@ const LoginViewModel = ({ children }: ViewModelProps) => {
                 })
                 .finally(() => helpers.setSubmitting(false))
         },
-        [strings, enqueueSnackbar]
+        [strings, enqueueSnackbar, location]
     );
     const loginFormik = useFormik<LoginFormModel>({
         initialValues: {

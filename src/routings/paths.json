@@ -1,10 +1,14 @@
 {
+    "index": "/",
     "auth": {
         "register": "/register",
         "login": "/login",
         "reset-password": "/reset-password"
     },
     "app": {
-        "index": "/app"
+        "index": "/app",
+        "workspaces": {
+            "index": "/app/workspaces"
+        }
     }
 }

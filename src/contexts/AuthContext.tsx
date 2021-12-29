@@ -7,22 +7,26 @@ import * as TokenStorage from '../utils/TokenStorage';
 
 export interface IAuthContext {
     user?: Profile,
-    authenticated?: boolean,
+    authenticated: boolean,
     authenticate: (data: AuthResult) => void
 }
 
-export const AuthContext = createContext<IAuthContext>({ authenticate: (d) => {} });
+export const AuthContext = createContext<IAuthContext>({ authenticate: (d) => {}, authenticated: false });
 
 export const AuthProvider: FC = ({ children }) => {
-    const authenticated: boolean = useMemo(() => TokenStorage.getAccessToken() != null, []);
     const [user, setUser] = useState<User|undefined>();
+    const [token, setToken] = useState<string|undefined|null>();
+    const authenticated: boolean = useMemo(() => token != null, [token]);
+
     const authenticate = useCallback((data: AuthResult) => {
         setUser(data.user);
+        setToken(data.token?.accessToken);
         TokenStorage.saveAccessToken(data.token?.accessToken);
     }, []);
 
     useEffect(() => {
         if (TokenStorage.getAccessToken() != null) {
+            setToken(TokenStorage.getAccessToken());
             const client = new ProfileClient();
             client.getCurrentUserProfile()
                 .then(user => setUser(user))
