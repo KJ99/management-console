@@ -9,6 +9,7 @@ import SignUpForm, { ISignUpFormValues } from "../../components/forms/SignUpForm
 import { AccountVerificationForm, IVerificationFormValues } from "../../components/forms/AccountVerificationForm";
 import { CheckCircleOutline, ChevronLeft } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
+import paths from '../../routings/paths.json';
 
 export type Props = {
     strings: (name: string, ...args: string[]) => string,
@@ -68,7 +69,7 @@ const RegistrationPage = (
                                                 <Typography>{strings('/verification/success')}</Typography>
                                             </Box>
                                             <Box mt={3} display="flex" justifyContent="center">
-                                                <Link component={RouterLink} color="info" to="/login" underline="hover">
+                                                <Link component={RouterLink} color="info" to={paths.auth.login} underline="hover">
                                                     {strings('/base/login')}
                                                 </Link>
                                             </Box>

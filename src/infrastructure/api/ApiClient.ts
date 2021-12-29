@@ -15,6 +15,7 @@ import * as CaseConverter from '../../utils/CaseConverter';
 import Naming from "../../extension/Naming";
 import * as Formatter from '../../utils/ObjectFormatter';
 import ConflictError from "./exceptions/ConflictError";
+import * as PathUtil from '../../utils/PathUtil';
 
 export interface ApiClientOptions {
     host: string,
@@ -94,7 +95,7 @@ export default class ApiClient {
         let url = joinUrl(base, path ?? '');
 
         if (params != null && typeof params == 'object') {
-            url = this.applyParams(url, params);
+            url = PathUtil.applyParams(url, params);
         }
         if (query != null && typeof query == 'object') {
             url = joinUrl(url, this.queryString(query));
@@ -107,15 +108,8 @@ export default class ApiClient {
         const plain = instanceToPlain(query);
         const converted = CaseConverter.convert(plain, Naming.KEBAB_CASE);
         Formatter.format(converted);
-        const items = Object.keys(converted).map((key) => `${key}=${converted[key]}`);
 
-        return items.length > 0 ? `?${items.join('&')}` : '';
-    }
-
-    private applyParams(url: string, params: any): string {
-        Object.keys(params).forEach((key) => url = url.replace(`:${key}`, params[key]));
-        
-        return url;
+        return PathUtil.createQueryString(query);
     }
 
     private requestBody(data: any, isFormData: boolean = false) {
