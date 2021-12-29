@@ -19,7 +19,7 @@ const common: ThemeOptions = {
             contrastText: '#f8f9fa'
         }
     }
-};
+}
 
 
 const buildThemeOptions: (base: ThemeOptions, variant: ThemeOptions) => ThemeOptions = (base: ThemeOptions, variant: ThemeOptions) => ({

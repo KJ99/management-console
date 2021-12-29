@@ -25,6 +25,10 @@ import RetroConfig from '../models/retrospective/RetroConfig';
 import RetroConfigUpdateModel from '../models/retrospective/RetroConfigUpdateModel';
 import DailyConfig from '../models/daily/DailyConfig';
 import DailyConfigUpdateModel from '../models/daily/DailyConfigUpdateModel';
+import { SignUpFormValues } from '../components/forms/SignUpForm';
+import AccountCreateModel from '../models/account/AccountCreateModel';
+import { VerificationFormValues } from '../components/forms/AccountVerificationForm';
+import VerifyAccountModel from '../models/account/VerifyAccountModel';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
@@ -78,3 +82,7 @@ mapper.createMap(Answer, AnswerUpdateModel)
     );
 mapper.createMap(ActionItem, ActionItemUpdateModel);
 mapper.createMap(DailyConfig, DailyConfigUpdateModel);
+
+mapper.createMap(SignUpFormValues, AccountCreateModel);
+mapper.createMap(VerificationFormValues, VerifyAccountModel)
+    .forMember((dest) => dest.token, mapFrom(() => ''));

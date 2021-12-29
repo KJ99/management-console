@@ -1,0 +1,11 @@
+{
+    "title": "Verify your account",
+    "head": "We have sent a verification email to your email address. Please provide a PIN from the message",
+    "not-received": "Did not received an email?",
+    "resend": "Re-send verification PIN",
+    "pin": "Verification PIN",
+    "submit": "Verify",
+    "resend-success": "Verification PIN was re-sent successfully",
+    "resend-fail": "Could not re-send verification PIN",
+    "success": "Account was verified successfully"
+}

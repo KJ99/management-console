@@ -1,0 +1,14 @@
+{
+    "title": "Create an account",
+    "form-labels": {
+        "email": "Email",
+        "username": "User Name",
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "password": "Password",
+        "confirm-password": "Confirm Password",
+        "aggreement": "I accept terms",
+        "submit": "Sign Up",
+        "login": "Log In"
+    }
+}

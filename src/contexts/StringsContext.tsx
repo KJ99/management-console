@@ -3,7 +3,7 @@ import * as StringResources from '../resources/strings';
 
 const flat = (subject: any, prefix: string = ''): any => {
     let result: any = {};
-    Object.keys(subject).forEach((key: string) => {
+    Object.keys(subject).forEach((key: any) => {
         if (typeof subject[key] == 'object' && subject[key] != null) {
             result = {
                 ...result,

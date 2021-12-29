@@ -14,6 +14,7 @@ import joinUrl from 'url-join';
 import * as CaseConverter from '../../utils/CaseConverter';
 import Naming from "../../extension/Naming";
 import * as Formatter from '../../utils/ObjectFormatter';
+import ConflictError from "./exceptions/ConflictError";
 
 export interface ApiClientOptions {
     host: string,
@@ -50,30 +51,30 @@ export default class ApiClient {
     }
 
     async get<T>(options: ApiCallOptions, targetClass: ClassConstructor<T>|null = null) {
-        return this.request(this.requestOptions(HttpMethod.get, options), targetClass);
+        return await  this.request(this.requestOptions(HttpMethod.get, options), targetClass);
     }
 
     async post<T>(options: ApiCallOptions, targetClass: ClassConstructor<T>|null = null) {
-        return this.request(
+        return await  this.request(
             this.requestOptions(HttpMethod.post, options, this.requestBody(options.body, options.isFormData ?? false)),
             targetClass
         );
     }
 
     async patch<T>(options: ApiCallOptions, targetClass: ClassConstructor<T>|null = null) {
-        return this.request(
+        return await  this.request(
             this.requestOptions(HttpMethod.patch, options, this.requestBody(options.body))),
             targetClass
     }
 
     async put<T>(options: ApiCallOptions, targetClass: ClassConstructor<T>|null = null) {
-        return this.request(
+        return await this.request(
             this.requestOptions(HttpMethod.put, options, this.requestBody(options.body))),
             targetClass
     }
 
     async delete<T>(options: ApiCallOptions, targetClass: ClassConstructor<T>|null = null) {
-        return this.request(this.requestOptions(HttpMethod.delete, options), targetClass);
+        return await  this.request(this.requestOptions(HttpMethod.delete, options), targetClass);
     }
 
     private requestOptions(method: string, callOptions: ApiCallOptions, body: any = null): RequestOptions {
@@ -153,9 +154,20 @@ export default class ApiClient {
             },
             body: options.body
         });
-        return response.ok 
-            ? this.processSuccessfulResponse(response, targetClass) 
-            : this.processErrorResponse(response, options, targetClass);
+
+        let result: any = null;
+        if(response.ok) {
+            result = await this.processSuccessfulResponse<T>(response, targetClass);
+        } else {
+            let errorProcessingResult: any = await this.processErrorResponse(response, options, targetClass);
+            if(errorProcessingResult instanceof Error) {
+                throw errorProcessingResult;
+            } else {
+                result = errorProcessingResult;
+            }
+        }
+
+        return result;
     }
 
     private async processErrorResponse<T>(
@@ -165,34 +177,40 @@ export default class ApiClient {
         let result = null;
         switch(response.status) {
             case HttpStatus.badRequest:
-                this.onBadRequest(response);
+                result = this.onBadRequest(response);
+                break;
+            case HttpStatus.conflict:
+                result = this.onConflict(response);
                 break;
             case HttpStatus.unauthorized:
                 result = this.onUnathorized(requestOptions, targetClass);
                  break;
             case HttpStatus.forbidden:
-                this.onForbidden();
+                result = this.onForbidden();
                 break;
             case HttpStatus.notFound:
-                this.onNotFound();
+                result = this.onNotFound();
                 break;
             default:
-                this.onUnexpectedError();
+                result = this.onUnexpectedError();
                 break;
         }
 
         return result;
     }
 
-    private async onBadRequest(response: Response) {
+    private async onBadRequest(response: Response): Promise<BadRequestError> {
         const body = await response.json();
         const converted = CaseConverter.convert(body, Naming.CAMEL_CASE);
         const errors = plainToClass(ApiError, converted);
-
-        throw new BadRequestError(errors);
+        return new BadRequestError(errors);
     }
 
-    private async onUnathorized<T>(requestOptions: RequestOptions, targetClass: ClassConstructor<T>|null = null) {
+    private async onUnathorized<T>(
+        requestOptions: RequestOptions, 
+        targetClass: ClassConstructor<T>|null = null
+    ): Promise<UnauthorizedError|null> {
+        let error: UnauthorizedError|null = null;
         if(!requestOptions.preventTokenRefresh) {
             await this.refreshToken();
             return await this.request(
@@ -203,19 +221,28 @@ export default class ApiClient {
                 targetClass
             )
         } else {
-            throw new UnauthorizedError();
+            error = new UnauthorizedError();
         }
+
+        return error;
     }
 
-    private onForbidden() {
-        throw new ForbiddenError();
+    private async onConflict(response: Response): Promise<ConflictError> {
+        const body = await response.json();
+        const converted = CaseConverter.convert(body, Naming.CAMEL_CASE);
+        const error = plainToClass(ApiError, converted);
+        return new ConflictError(error);
     }
 
-    private onNotFound() {
+    private async onForbidden(): Promise<ForbiddenError> {
+        return new ForbiddenError();
+    }
+
+    private async onNotFound(): Promise<NotFoundError> {
         throw new NotFoundError();
     }
 
-    private onUnexpectedError() {
+    private onUnexpectedError(): Promise<UnexpectedError> {
         throw new UnexpectedError();
     }
 
