@@ -10,5 +10,7 @@
         "aggreement": "I accept terms",
         "submit": "Sign Up",
         "login": "Log In"
-    }
+    },
+    "have-account": "Already have an account?",
+    "sign-in": "Log in"
 }

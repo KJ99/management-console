@@ -1,4 +1,5 @@
-import { createContext, FC, useCallback, useMemo, useState } from "react";
+import { createContext, FC, useCallback, useEffect, useMemo, useState } from "react";
+import ProfileClient from "../infrastructure/clients/identity-server/ProfileClient";
 import AuthResult from "../models/auth/AuthResult";
 import Profile from "../models/profile/Profile";
 import User from "../models/profile/User";
@@ -18,6 +19,17 @@ export const AuthProvider: FC = ({ children }) => {
     const authenticate = useCallback((data: AuthResult) => {
         setUser(data.user);
         TokenStorage.saveAccessToken(data.token?.accessToken);
+    }, []);
+
+    useEffect(() => {
+        if (TokenStorage.getAccessToken() != null) {
+            const client = new ProfileClient();
+            client.getCurrentUserProfile()
+                .then(user => setUser(user))
+                .catch(() => {
+                    TokenStorage.clearAccessToken();
+                });
+        }
     }, []);
 
     return (

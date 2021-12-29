@@ -29,6 +29,8 @@ import { SignUpFormValues } from '../components/forms/SignUpForm';
 import AccountCreateModel from '../models/account/AccountCreateModel';
 import { VerificationFormValues } from '../components/forms/AccountVerificationForm';
 import VerifyAccountModel from '../models/account/VerifyAccountModel';
+import { LoginFormModel } from '../components/forms/LoginForm';
+import LoginModel from '../models/auth/LoginModel';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
@@ -86,3 +88,5 @@ mapper.createMap(DailyConfig, DailyConfigUpdateModel);
 mapper.createMap(SignUpFormValues, AccountCreateModel);
 mapper.createMap(VerificationFormValues, VerifyAccountModel)
     .forMember((dest) => dest.token, mapFrom(() => ''));
+
+mapper.createMap(LoginFormModel, LoginModel);

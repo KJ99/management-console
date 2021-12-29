@@ -1,0 +1,9 @@
+{
+    "title": "Log in",
+    "username": "Username",
+    "password": "Password",
+    "submit": "Log in",
+    "no-account": "Do not have an account?",
+    "sign-up": "Create a new one",
+    "bad-credentials": ""
+}

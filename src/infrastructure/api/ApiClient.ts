@@ -180,7 +180,7 @@ export default class ApiClient {
                 result = this.onUnathorized(requestOptions, targetClass);
                  break;
             case HttpStatus.forbidden:
-                result = this.onForbidden();
+                result = this.onForbidden(response);
                 break;
             case HttpStatus.notFound:
                 result = this.onNotFound();
@@ -228,8 +228,15 @@ export default class ApiClient {
         return new ConflictError(error);
     }
 
-    private async onForbidden(): Promise<ForbiddenError> {
-        return new ForbiddenError();
+    private async onForbidden(response: Response): Promise<ForbiddenError> {
+        const error =  new ForbiddenError();
+        if (response.headers.get('content-type') === MediaType.json) {
+            const body = await response.json();
+            const converted = CaseConverter.convert(body, Naming.CAMEL_CASE);
+            error.additionalData = converted?.additionalData;
+        }
+
+        return error;
     }
 
     private async onNotFound(): Promise<NotFoundError> {

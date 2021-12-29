@@ -21,8 +21,9 @@ const styleSheet = makeStyles((theme: Theme) => createStyles({
         alignItems: 'center'
     },
     profileContainer: {
-        backgroundColor: 'green',
         height: 64,
+        display: 'flex',
+        alignItems: 'center'
     },
     logo: {
         height: 48,

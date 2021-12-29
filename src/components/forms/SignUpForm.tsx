@@ -1,7 +1,9 @@
-import { FormControlLabel, FormHelperText, Grid, Switch, TextField } from '@mui/material';
+import { Box, FormControlLabel, FormHelperText, Grid, Link, Switch, TextField, Typography } from '@mui/material';
 import styleSheet from '../../resources/styles/components/forms';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { FormikProps } from 'formik';
+import { Link as RouterLink } from 'react-router-dom';
+import paths from '../../routings/paths.json';
 
 export interface ISignUpFormValues {
     email: string,
@@ -149,6 +151,16 @@ const SignUpForm = ({ strings, formProps }: Props) => {
                     >
                         {strings("/registration/form-labels/submit")}
                     </LoadingButton>
+                </Grid>
+                <Grid item>
+                    <Box display="flex" justifyContent="center">
+                       <Typography mr={2}>
+                            {strings('/registration/have-account')}
+                        </Typography>
+                        <Link component={RouterLink} to={paths.auth.login}>
+                            {strings('/registration/sign-in')}
+                        </Link>
+                    </Box>
                 </Grid>
             </Grid>
         </form>
