@@ -11,11 +11,14 @@ export interface IAuthContext {
     authenticate: (data: AuthResult) => void
 }
 
-export const AuthContext = createContext<IAuthContext>({ authenticate: (d) => {}, authenticated: false });
+export const AuthContext = createContext<IAuthContext>({
+    authenticate: (d) => {}, 
+    authenticated: false
+});
 
 export const AuthProvider: FC = ({ children }) => {
     const [user, setUser] = useState<User|undefined>();
-    const [token, setToken] = useState<string|undefined|null>();
+    const [token, setToken] = useState<string|undefined|null>(TokenStorage.getAccessToken());
     const authenticated: boolean = useMemo(() => token != null, [token]);
 
     const authenticate = useCallback((data: AuthResult) => {

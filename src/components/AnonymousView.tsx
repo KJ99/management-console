@@ -12,7 +12,7 @@ export type Props = {
 const AnonymousView = ({ children }: Props) => {
     const { authenticated } = useContext(AuthContext);
     return (
-        <ConditionalView condition={getAccessToken() == null}>
+        <ConditionalView condition={!authenticated}>
             {children}
         </ConditionalView>
     );

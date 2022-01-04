@@ -13,12 +13,12 @@ const RestrictedView = ({ children }: Props) => {
     const { authenticated } = useContext(AuthContext);
     const navigate = useNavigate();
     useEffect(() => {
-        if (getAccessToken() == null) {
+        if (!authenticated) {
             navigate(paths.auth.login);
         }
     }, [authenticated, navigate]);
     return (
-        <ConditionalView condition={getAccessToken() != null}>
+        <ConditionalView condition={authenticated}>
             {children}
         </ConditionalView>
     );

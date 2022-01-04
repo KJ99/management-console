@@ -109,7 +109,7 @@ export default class ApiClient {
         const converted = CaseConverter.convert(plain, Naming.KEBAB_CASE);
         Formatter.format(converted);
 
-        return PathUtil.createQueryString(query);
+        return PathUtil.createQueryString(converted);
     }
 
     private requestBody(data: any, isFormData: boolean = false) {

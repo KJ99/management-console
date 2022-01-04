@@ -31,6 +31,8 @@ import { VerificationFormValues } from '../components/forms/AccountVerificationF
 import VerifyAccountModel from '../models/account/VerifyAccountModel';
 import { LoginFormModel } from '../components/forms/LoginForm';
 import LoginModel from '../models/auth/LoginModel';
+import { WorkspaceFormModel } from '../components/forms/WorkspaceForm';
+import TeamModel from '../models/team/TeamModel';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
@@ -90,3 +92,5 @@ mapper.createMap(VerificationFormValues, VerifyAccountModel)
     .forMember((dest) => dest.token, mapFrom(() => ''));
 
 mapper.createMap(LoginFormModel, LoginModel);
+mapper.createMap(WorkspaceFormModel, TeamModel)
+    .forMember((dest) => dest.pictureId, mapFrom(() => null));

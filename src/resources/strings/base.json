@@ -1,4 +1,9 @@
 {
     "back": "Back",
-    "login": "Log in"
+    "login": "Log in",
+    "save": "Save",
+    "cancel": "Cancel",
+    "name": "Name",
+    "next": "Next",
+    "confirm": "Confirm"
 }

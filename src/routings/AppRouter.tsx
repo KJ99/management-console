@@ -23,6 +23,7 @@ const AppRouter = () => {
                     <Route path={paths.index} element={<Navigate to={paths.app.index} />} />
                     <Route path={paths.app.index} element={<Navigate to={paths.app.workspaces.index} />} />
                     <Route path={paths.app.workspaces.index} element={<WorkspacesView />} />
+                    <Route path={paths.app.workspaces.dashboard} element={<p>Dashboard</p>} />
                     <Route path="*" element={<p>Not Found Restricted</p>} />
                 </Routes>  
             </RestrictedView>  

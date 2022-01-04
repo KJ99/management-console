@@ -4,7 +4,7 @@ import TopBar, { MenuTrigger } from "./components/TopBar";
 import { AuthProvider } from "./contexts/AuthContext";
 import { StringsProvider } from "./contexts/StringsContext";
 import AppRouter from "./routings/AppRouter";
-import { SeaLight } from "./themes";
+import { SeaDark, SeaLight } from "./themes";
 
 const App = () => {
     return (

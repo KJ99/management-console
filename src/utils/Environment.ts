@@ -1,0 +1,1 @@
+export const DefaultPageSize: number = parseInt(process.env.REACT_APP_DEFAULT_PAGE_SIZE ?? '100');

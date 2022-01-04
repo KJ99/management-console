@@ -8,7 +8,8 @@
     "app": {
         "index": "/app",
         "workspaces": {
-            "index": "/app/workspaces"
+            "index": "/app/workspaces",
+            "dashboard": "/app/workspaces/:id"
         }
     }
 }

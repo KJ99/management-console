@@ -1,4 +1,5 @@
 import { ThemeOptions } from "@mui/material";
+import * as ColorSchemes from './color-schemes';
 
 const common: ThemeOptions = {
     spacing: 5,
@@ -56,6 +57,9 @@ const light: ThemeOptions = {
                 body: {
                     backgroundColor: '#f6f7f8',
                     color: '#222'
+                },
+                a: {
+                    textDecoration: 'none'
                 }
             }
         }
@@ -89,12 +93,12 @@ const dark: ThemeOptions = {
 const sea: ThemeOptions = {
     palette: {
         primary: {
-            main: '#2de0dd',
-            contrastText: '#f8f9fa'
+            main: ColorSchemes.Sea.primary,
+            contrastText: ColorSchemes.Sea.primaryText
         },
         secondary: {
-            main: '#25bab8',
-            contrastText: '#f8f9fa'
+            main: ColorSchemes.Sea.secondary,
+            contrastText: ColorSchemes.Sea.secondaryText
         }
     }
 }
@@ -102,12 +106,12 @@ const sea: ThemeOptions = {
 const desk: ThemeOptions = {
     palette: {
         primary: {
-            main: '#C7976E',
-            contrastText: '#222'
+            main: ColorSchemes.Desk.primary,
+            contrastText: ColorSchemes.Desk.primaryText
         },
         secondary: {
-            main: '#b88254',
-            contrastText: '#222'
+            main: ColorSchemes.Desk.secondary,
+            contrastText: ColorSchemes.Desk.secondaryText
         }
     }
 }
@@ -115,12 +119,12 @@ const desk: ThemeOptions = {
 const unicorn: ThemeOptions = {
     palette: {
         primary: {
-            main: '#fa32df',
-            contrastText: '#f8f9fa'
+            main: ColorSchemes.Unicorn.primary,
+            contrastText: ColorSchemes.Unicorn.primaryText
         },
         secondary: {
-            main: '#d92bc1',
-            contrastText: '#f8f9fa'
+            main: ColorSchemes.Unicorn.secondary,
+            contrastText: ColorSchemes.Unicorn.secondaryText
         }
     }
 }
@@ -128,12 +132,12 @@ const unicorn: ThemeOptions = {
 const grassland: ThemeOptions = {
     palette: {
         primary: {
-            main: '#04c259',
-            contrastText: '#f8f9fa'
+            main: ColorSchemes.Grassland.primary,
+            contrastText: ColorSchemes.Grassland.primaryText
         },
         secondary: {
-            main: '#0a8f45',
-            contrastText: '#f8f9fa'
+            main: ColorSchemes.Grassland.secondary,
+            contrastText: ColorSchemes.Grassland.secondaryText
         }
     }
 }

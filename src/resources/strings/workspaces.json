@@ -1,0 +1,13 @@
+{
+    "title": "Workspaces",
+    "create": "Create workspace",
+    "join": "Join workspace",
+    "provide-image": "Provide a workspace image",
+    "created-success": "Workspace created successfully",
+    "created-fail": "Could not create a workspace",
+    "invite-code": "Invite code",
+    "invite-code-expired": "Invite code has expired. Please get a new one to join the team",
+    "join-success": "You are now a member of $1 workspace",
+    "join-failed": "Could not join to the workspace",
+    "join-confirm": "Do you want to join this workspace?"
+}
