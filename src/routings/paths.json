@@ -7,9 +7,63 @@
     },
     "app": {
         "index": "/app",
+        "profile": {
+            "details": "/app/profile"
+        },
         "workspaces": {
             "index": "/app/workspaces",
-            "dashboard": "/app/workspaces/:id"
+            "dashboard": "/app/workspaces/:workspaceId",
+            "dashboardIndexRedirect": "details",
+            "details": {
+                "pattern": "/app/workspaces/.*/details",
+                "path": "/app/workspaces/:workspaceId/details"
+            },
+            "daily": {
+                "day": {
+                    "path": "/app/workspaces/:workspaceId/daily/:day",
+                    "pattern": "/app/workspaces/.*/daily/([0-9].*|today)"
+                },
+                "archive": {
+                    "path": "/app/workspaces/:workspaceId/daily/archive",
+                    "pattern": "/app/workspaces/.*/daily/archive"
+                },
+                "pattern": "/app/workspaces/.*/daily/.*"
+            },
+            "planning": {
+                "create": {
+                    "path": "/app/workspaces/:workspaceId/plannings/create",
+                    "pattern": "/app/workspaces/.*/plannings/create"
+                },
+                "incoming": {
+                    "path": "/app/workspaces/:workspaceId/plannings/incoming",
+                    "pattern": "/app/workspaces/.*/plannings/incoming"
+                },
+                "archive": {
+                    "path": "/app/workspaces/:workspaceId/plannings/archive",
+                    "pattern": "/app/workspaces/.*/plannings/archive"
+                },
+                "details": "/app/workspaces/:workspaceId/plannings/:planningId",
+                "pattern": "/app/workspaces/.*/plannings/.*"
+            },
+            "retro": {
+                "create": {
+                    "path": "/app/workspaces/:workspaceId/retrospectives/create",
+                    "pattern": "/app/workspaces/.*/retrospectives/create"
+                },
+                "incoming": {
+                    "path": "/app/workspaces/:workspaceId/retrospectives/incoming",
+                    "pattern": "/app/workspaces/.*/retrospectives/incoming"
+                },
+                "archive": {
+                    "path": "/app/workspaces/:workspaceId/retrospectives/archive",
+                    "pattern": "/app/workspaces/.*/retrospectives/archive"
+                },
+                "actions": {
+                    "path": "/app/workspaces/:workspaceId/retrospectives/actions",
+                    "pattern": "/app/workspaces/.*/retrospectives/actions"
+                },
+                "pattern": "/app/workspaces/.*/retrospectives/.*"
+            }
         }
     }
 }

@@ -83,7 +83,7 @@ const WorkspacesPage = ({
                     </Grid>
                     {workspaces.map((workspace) => (
                         <Grid item key={v4()}>
-                            <Link to={preparePath(paths.app.workspaces.dashboard, { id: workspace.id })}>
+                            <Link to={preparePath(paths.app.workspaces.dashboard, { workspaceId: workspace.id })}>
                                 <ButtonBase>
                                     <Card className={classes.workspaceCard}>
                                         <CardMedia>

@@ -19,11 +19,13 @@ import { InviteCodeFormModel } from "../components/forms/InviteCodeForm";
 import ForbiddenError from "../infrastructure/api/exceptions/ForbiddenError";
 import Invitation from "../models/invitations/Invitation";
 import { DefaultPageSize } from "../utils/Environment";
+import { SettingsContext } from "../contexts/SettingsContext";
 
 const client = new TeamsClient();
 
 const WorkspacesViewModel = ({ children }: ViewModelProps) => {
     const { strings } = useContext(StringsContext);
+    const { setWorkspaceTheme } = useContext(SettingsContext);
     const [loaded, setLoaded] = useState(false);
     const [pageLoading, setPageLoading] = useState(false);
     const [totalPages, setTotalPages] = useState(0);
@@ -163,6 +165,10 @@ const WorkspacesViewModel = ({ children }: ViewModelProps) => {
             })
             .catch(() => enqueueSnackbar(strings('/workspaces/join-failed'), { variant: 'error' }));
     }, [invitation, enqueueSnackbar, strings, reload]);
+
+    useEffect(() => {
+        setWorkspaceTheme(WorkspaceTheme.SEA);
+    }, [setWorkspaceTheme]);
 
     const handleCreateDialogClose = useCallback(() => setCreateDialogOpen(false), []);
     const handleCreateDialogOpen = useCallback(() => setCreateDialogOpen(true), []);

@@ -54,12 +54,15 @@ const light: ThemeOptions = {
     components: {
         MuiCssBaseline: {
             styleOverrides: {
+                '*': {
+                },
                 body: {
                     backgroundColor: '#f6f7f8',
                     color: '#222'
                 },
                 a: {
-                    textDecoration: 'none'
+                    textDecoration: 'none',
+                    color: 'inherit'
                 }
             }
         }
