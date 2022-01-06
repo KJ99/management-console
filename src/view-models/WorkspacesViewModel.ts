@@ -20,12 +20,13 @@ import ForbiddenError from "../infrastructure/api/exceptions/ForbiddenError";
 import Invitation from "../models/invitations/Invitation";
 import { DefaultPageSize } from "../utils/Environment";
 import { SettingsContext } from "../contexts/SettingsContext";
+import { WorkspaceContext } from "../contexts/WorkspaceContext";
 
 const client = new TeamsClient();
 
 const WorkspacesViewModel = ({ children }: ViewModelProps) => {
     const { strings } = useContext(StringsContext);
-    const { setWorkspaceTheme } = useContext(SettingsContext);
+    const { clearWorkspace } = useContext(WorkspaceContext);
     const [loaded, setLoaded] = useState(false);
     const [pageLoading, setPageLoading] = useState(false);
     const [totalPages, setTotalPages] = useState(0);
@@ -167,8 +168,8 @@ const WorkspacesViewModel = ({ children }: ViewModelProps) => {
     }, [invitation, enqueueSnackbar, strings, reload]);
 
     useEffect(() => {
-        setWorkspaceTheme(WorkspaceTheme.SEA);
-    }, [setWorkspaceTheme]);
+        clearWorkspace();
+    }, [clearWorkspace]);
 
     const handleCreateDialogClose = useCallback(() => setCreateDialogOpen(false), []);
     const handleCreateDialogOpen = useCallback(() => setCreateDialogOpen(true), []);

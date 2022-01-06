@@ -42,9 +42,16 @@ const styleSheet = makeStyles((theme: Theme) => createStyles({
         fontSize: '1.75rem'
     },
     large: {
-        width: 64,
-        height: 64,
-        fontSize: '2.5rem'
+        [theme.breakpoints.up('md')]: {
+            width: 96,
+            height: 96,
+            fontSize: '2.5rem'
+        },
+        [theme.breakpoints.down('md')]: {
+            width: 64,
+            height: 64,
+            fontSize: '2rem'
+        },
     }
 }));
 

@@ -5,6 +5,7 @@ import NavDrawer from "../components/nav/NavDrawer";
 import { AuthContext } from "../contexts/AuthContext";
 import { SettingsContext } from "../contexts/SettingsContext";
 import { StringsContext } from "../contexts/StringsContext";
+import { WorkspaceContext } from "../contexts/WorkspaceContext";
 import WorkspaceRole from "../extension/WorkspaceRole";
 import WorkspaceTheme from "../extension/WorkspaceTheme";
 import MembersClient from "../infrastructure/clients/teams-api/MembersClient";
@@ -17,8 +18,7 @@ const WorkspaceDashboard = () => {
     const classes = styleSheet();
     const { user, setWorkspaceRoles } = useContext(AuthContext);
     const { workspaceId } = useParams();
-    const [workspace, setWorkspace] = useState<Team|undefined>();
-    const { setWorkspaceTheme } = useContext(SettingsContext);
+    const { workspace, setWorkspace } = useContext(WorkspaceContext);
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const { strings } = useContext(StringsContext);
@@ -31,7 +31,7 @@ const WorkspaceDashboard = () => {
                 enqueueSnackbar(strings('/workspaces/not-found'), { variant: 'error' });
                 navigate(paths.app.workspaces.index);
             });
-    }, [workspaceId, enqueueSnackbar, navigate]);
+    }, [workspaceId, enqueueSnackbar, navigate, setWorkspace]);
 
     useEffect(() => {
         if (workspace != null && user != null) {
@@ -46,13 +46,7 @@ const WorkspaceDashboard = () => {
                     navigate(paths.app.workspaces.index);
                 })
         }
-    }, [workspace, user, setWorkspaceRoles, enqueueSnackbar, navigate])
-
-    useEffect(() => {
-        if(workspace != null) {
-            setWorkspaceTheme(workspace.settings?.theme ?? WorkspaceTheme.SEA);
-        }
-    }, [setWorkspaceTheme, workspace]);
+    }, [workspace, user, setWorkspaceRoles, enqueueSnackbar, navigate]);
 
     return (
         <Fragment>

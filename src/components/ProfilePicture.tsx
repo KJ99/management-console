@@ -4,13 +4,14 @@ import styleSheet from "../resources/styles/components/ProfilePicture";
 import clsx from 'clsx';
 import { Box, Typography } from "@mui/material";
 import ConditionalView from "./ConditionalView";
+import Member from "../models/member/Member";
 
 export type Props = {
     variant: string,
-    user: Profile|User
+    user: Profile|User|Member
 }
 
-const getUserInitials = (user: Profile|User): string => {
+const getUserInitials = (user: Profile|User|Member): string => {
     const firstInitial: string = user.firstName?.charAt(0) ?? '';
     const lastInitial: string = user.lastName?.charAt(0) ?? '';
 

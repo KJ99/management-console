@@ -2,6 +2,7 @@
     "invalid": "Some fields has invalid values. Please check the form",
     "unknown": "Unexpected error has occured",
     "non-empty": "This field is required",
+    "not-found": "Not found",
     "invalid-email": "This field should contain a valid email address",
     "provided-value-wrong-length": "This field has a wrong length",
     "password": "Password should have length between 6 and 128 characters, at least one uppercase letter, lowercase letter, digit and special character",

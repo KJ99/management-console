@@ -6,6 +6,7 @@ import login from './login.json';
 import workspaces from './workspaces.json';
 import themes from './themes.json';
 import dropzone from './dropzone.json';
+import breadcrumbs from './breadcrumbs.json';
 
 export default {
     registration,
@@ -15,5 +16,6 @@ export default {
     login,
     workspaces,
     themes,
-    dropzone
+    dropzone,
+    breadcrumbs
 };

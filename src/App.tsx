@@ -5,6 +5,7 @@ import TopBar, { MenuTrigger } from "./components/TopBar";
 import { AuthProvider } from "./contexts/AuthContext";
 import { SettingsContext } from "./contexts/SettingsContext";
 import { StringsProvider } from "./contexts/StringsContext";
+import { WorkspaceProvider } from "./contexts/WorkspaceContext";
 import AppRouter from "./routings/AppRouter";
 import { SeaDark, SeaLight } from "./themes";
 
@@ -17,8 +18,10 @@ const App = () => {
                     <SnackbarProvider>
                         <StringsProvider>
                             <AuthProvider>
-                                <TopBar />
-                                <AppRouter />
+                                <WorkspaceProvider>
+                                    <TopBar />
+                                    <AppRouter />
+                                </WorkspaceProvider>
                             </AuthProvider>
                         </StringsProvider>
                     </SnackbarProvider>

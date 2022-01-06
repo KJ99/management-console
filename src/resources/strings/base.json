@@ -2,8 +2,12 @@
     "back": "Back",
     "login": "Log in",
     "save": "Save",
+    "edit": "Edit",
     "cancel": "Cancel",
     "name": "Name",
     "next": "Next",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No"
 }

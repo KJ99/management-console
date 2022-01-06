@@ -16,8 +16,8 @@ export default class MembersClient extends TeamsApiClient {
         super(endpoints.base);
     }
 
-    async getTeamMembers(teamId: number): Promise<Page<Member>> {
-        return this._apiClient.get({ routeParams: { teamId: teamId } }, MemberPage)
+    async getTeamMembers(teamId: number): Promise<Member[]> {
+        return this._apiClient.get({ routeParams: { teamId: teamId } }, Member)
     }
 
     async get(teamId: number, userId: string): Promise<Member> {

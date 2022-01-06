@@ -33,6 +33,8 @@ import { LoginFormModel } from '../components/forms/LoginForm';
 import LoginModel from '../models/auth/LoginModel';
 import { WorkspaceFormModel } from '../components/forms/WorkspaceForm';
 import TeamModel from '../models/team/TeamModel';
+import { MemberRolesFormModel } from '../components/forms/MemberRolesForm';
+import WorkspaceTheme from '../extension/WorkspaceTheme';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
@@ -94,3 +96,20 @@ mapper.createMap(VerificationFormValues, VerifyAccountModel)
 mapper.createMap(LoginFormModel, LoginModel);
 mapper.createMap(WorkspaceFormModel, TeamModel)
     .forMember((dest) => dest.pictureId, mapFrom(() => null));
+mapper.createMap(MemberRolesFormModel, MemberUpdateModel);
+mapper.createMap(WorkspaceFormModel, TeamUpdateModel)
+    .forMember((dest) => dest.pictureId, mapFrom(() => null))
+    .forMember(
+        (dest) => dest.settings, 
+        mapFrom((src) => {
+            const settings = new TeamSettingsUpdateModel();
+            settings.theme = src.theme;
+            return settings;
+        })
+    );
+mapper.createMap(Team, WorkspaceFormModel)
+    .forMember((dest) => dest.picture, mapFrom(() => null))
+    .forMember(
+        (dest) => dest.theme, 
+        mapFrom((src) => src.settings?.theme?.toString() ?? WorkspaceTheme[WorkspaceTheme.SEA])
+    );
