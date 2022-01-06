@@ -2,6 +2,7 @@ import { createTheme, Theme, ThemeOptions } from "@mui/material";
 import { createContext, FC, useEffect, useMemo, useState } from "react";
 import WorkspaceTheme from "../extension/WorkspaceTheme";
 import * as Themes from '../themes';
+import { NightModeStorageKey } from "../themes/color-schemes";
 
 export interface ISettingsContext {
     workspaceTheme: WorkspaceTheme;
@@ -41,7 +42,7 @@ const resolveApplicationTheme = (workspaceTheme: any, nightMode: boolean): Theme
 
 export const SettingsProvider: FC = ({ children }) => {
     const [workspaceTheme, setWorkspaceTheme] = useState(WorkspaceTheme.SEA);
-    const [nightMode, setNightMode] = useState(false);
+    const [nightMode, setNightMode] = useState(parseInt(localStorage.getItem(NightModeStorageKey) ?? '0') > 0);
     const theme = useMemo(() => {
         return resolveApplicationTheme(WorkspaceTheme[workspaceTheme], nightMode);
     }, [workspaceTheme, nightMode]);

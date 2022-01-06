@@ -32,3 +32,5 @@ export const Unicorn: ColorScheme ={
     secondary: '#0a8f45',
     secondaryText: '#f8f9fa'
 }
+
+export const NightModeStorageKey: string = process.env.REACT_APP_NIGHT_MODE_KEY ?? 'night-mode';

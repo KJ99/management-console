@@ -30,6 +30,9 @@ const styleSheet = makeStyles((theme: Theme) => createStyles({
         width: 48,
         borderRadius: '50%',
         objectFit: 'cover',
+    },
+    menuItem: {
+        padding: theme.spacing(2)
     }
 }));
 
