@@ -19,7 +19,6 @@ const App = () => {
                         <StringsProvider>
                             <AuthProvider>
                                 <WorkspaceProvider>
-                                    <TopBar />
                                     <AppRouter />
                                 </WorkspaceProvider>
                             </AuthProvider>

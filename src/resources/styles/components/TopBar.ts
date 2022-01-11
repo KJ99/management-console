@@ -5,6 +5,10 @@ const styleSheet = makeStyles((theme: Theme) => createStyles({
     root: {
         backgroundColor: theme.palette.background.paper,
         height: 64,
+        position: 'fixed',
+        top: 0,
+        width: '100vw',
+        zIndex: 150,
         boxShadow: theme.shadows[1],
         display: 'flex',
         justifyContent: 'space-between',

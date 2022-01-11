@@ -8,12 +8,12 @@ import Member from "../models/member/Member";
 
 export type Props = {
     variant: string,
-    user: Profile|User|Member
+    user?: Profile|User|Member
 }
 
-const getUserInitials = (user: Profile|User|Member): string => {
-    const firstInitial: string = user.firstName?.charAt(0) ?? '';
-    const lastInitial: string = user.lastName?.charAt(0) ?? '';
+const getUserInitials = (user?: Profile|User|Member): string => {
+    const firstInitial: string = user?.firstName?.charAt(0) ?? '';
+    const lastInitial: string = user?.lastName?.charAt(0) ?? '';
 
     return `${firstInitial}${lastInitial}`.toUpperCase();
 }
@@ -31,7 +31,7 @@ const ProfilePicture = ({ variant, user }: Props) => {
             }
         >
             <ConditionalView 
-                condition={user.pictureUrl != null}
+                condition={user?.pictureUrl != null}
                 otherwise={
                     <Box className={classes.avatar}>
                         <Typography className={classes.initials}>
@@ -42,7 +42,7 @@ const ProfilePicture = ({ variant, user }: Props) => {
             >
                 <img
                     className={classes.image}
-                    src={user.pictureUrl}
+                    src={user?.pictureUrl}
                     alt="profile picture"
                 />
             </ConditionalView>

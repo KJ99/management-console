@@ -1,5 +1,10 @@
 {
     "edit": "Edit Profile",
     "logout": "Log Out",
-    "night-mode": "Night Mode"
+    "night-mode": "Night Mode",
+    "title": "Profile Details",
+    "edit-title": "Edit Profile",
+    "edit-success": "Profile updated successfully",
+    "edit-fail": "Could not update the profile",
+    "provide-picture": "Provide a profile picture"
 }

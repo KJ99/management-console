@@ -5,6 +5,9 @@ const styleSheet = makeStyles((theme: Theme) => createStyles({
     submitRow: {
         display: 'flex',
         justifyContent: 'flex-end'
+    },
+    cancelAction: {
+        marginRight: theme.spacing(1)
     }
 }));
 

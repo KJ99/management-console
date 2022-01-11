@@ -9,13 +9,14 @@ import * as TokenStorage from '../utils/TokenStorage';
 import { SettingsContext } from "./SettingsContext";
 
 export interface IAuthContext {
-    user?: Profile,
+    user?: User,
     workspaceRoles: string[],
     setWorkspaceRoles: (roles: string[]) => void,
     authenticated: boolean,
     authenticate: (data: AuthResult) => void,
     deauthenticate: () => void,
-    hasRole: (role: WorkspaceRole) => boolean
+    hasRole: (role: WorkspaceRole) => boolean,
+    setUser: (user?: User) => void
 }
 
 export const AuthContext = createContext<IAuthContext>({
@@ -24,7 +25,8 @@ export const AuthContext = createContext<IAuthContext>({
     authenticated: false,
     workspaceRoles: [],
     setWorkspaceRoles: (_) => {},
-    hasRole: (_) => false
+    hasRole: (_) => false,
+    setUser: (_) => {}
 });
 
 export const AuthProvider: FC = ({ children }) => {
@@ -76,7 +78,8 @@ export const AuthProvider: FC = ({ children }) => {
             workspaceRoles, 
             setWorkspaceRoles,
             hasRole,
-            deauthenticate
+            deauthenticate,
+            setUser
         }}>
             {children}
         </AuthContext.Provider>

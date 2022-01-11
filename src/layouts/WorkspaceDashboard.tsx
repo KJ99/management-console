@@ -11,7 +11,7 @@ import WorkspaceTheme from "../extension/WorkspaceTheme";
 import MembersClient from "../infrastructure/clients/teams-api/MembersClient";
 import TeamsClient from "../infrastructure/clients/teams-api/TeamsClient";
 import Team from "../models/team/Team";
-import styleSheet from "../resources/styles/views/WorkspaceDashboard";
+import styleSheet from "../resources/styles/layouts/WorkspaceDashboard";
 import paths from '../routings/paths.json';
 
 const WorkspaceDashboard = () => {

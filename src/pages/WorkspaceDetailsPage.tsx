@@ -12,7 +12,7 @@ import WorkspaceTheme from "../extension/WorkspaceTheme";
 import Member from "../models/member/Member";
 import Team from "../models/team/Team";
 import styleSheet from "../resources/styles/pages/WorkspaceDetailsPage";
-import panelDashboard from "../resources/styles/views/WorkspaceDashboard";
+import panelDashboard from "../resources/styles/layouts/WorkspaceDashboard";
 import paths from '../routings/paths.json';
 import * as ColorSchemes from '../themes/color-schemes';
 import QRCode from "react-qr-code";
