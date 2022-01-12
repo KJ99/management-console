@@ -1,3 +1,5 @@
+import { LocalizationProvider  } from "@mui/lab";
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { createTheme, CssBaseline, StyledEngineProvider, ThemeProvider } from "@mui/material"
 import { SnackbarProvider } from "notistack";
 import { useContext } from "react";
@@ -15,15 +17,17 @@ const App = () => {
         <ThemeProvider theme={theme}>
             <StyledEngineProvider injectFirst>
                 <CssBaseline>
-                    <SnackbarProvider>
-                        <StringsProvider>
-                            <AuthProvider>
-                                <WorkspaceProvider>
-                                    <AppRouter />
-                                </WorkspaceProvider>
-                            </AuthProvider>
-                        </StringsProvider>
-                    </SnackbarProvider>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <SnackbarProvider>
+                            <StringsProvider>
+                                <AuthProvider>
+                                    <WorkspaceProvider>
+                                        <AppRouter />
+                                    </WorkspaceProvider>
+                                </AuthProvider>
+                            </StringsProvider>
+                        </SnackbarProvider>
+                    </LocalizationProvider>
                 </CssBaseline>
             </StyledEngineProvider>
         </ThemeProvider>

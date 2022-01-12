@@ -8,6 +8,7 @@ import themes from './themes.json';
 import dropzone from './dropzone.json';
 import breadcrumbs from './breadcrumbs.json';
 import profile from './profile.json';
+import daily from './daily.json';
 
 export default {
     registration,
@@ -19,5 +20,6 @@ export default {
     themes,
     dropzone,
     breadcrumbs,
-    profile
+    profile,
+    daily
 };

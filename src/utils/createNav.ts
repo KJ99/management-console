@@ -1,6 +1,7 @@
 import { ListAlt, PeopleAlt, ThumbsUpDown, Today } from "@mui/icons-material";
 import moment from "moment";
 import { INavElement } from "../components/nav/NavElement";
+import WorkspaceRole from "../extension/WorkspaceRole";
 import paths from '../routings/paths.json';
 import { preparePath } from "./PathUtil";
 
@@ -38,6 +39,14 @@ const createNav = (workspaceId: any): INavElement[] => [
                 pattern: paths.app.workspaces.daily.archive.pattern,
                 depth: 1,
                 children: []
+            },
+            {
+                label: 'Configure',
+                href: preparePath(paths.app.workspaces.daily.configure.path, { workspaceId }),
+                pattern: paths.app.workspaces.daily.configure.pattern,
+                depth: 1,
+                children: [],
+                permittedRoles: [WorkspaceRole.SCRUM_MASTER]
             },
         ]
     },

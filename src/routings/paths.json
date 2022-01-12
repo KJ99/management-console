@@ -23,6 +23,10 @@
                     "path": "/app/workspaces/:workspaceId/daily/:day",
                     "pattern": "/app/workspaces/.*/daily/([0-9].*|today)"
                 },
+                "configure": {
+                    "path": "/app/workspaces/:workspaceId/daily/configure",
+                    "pattern": "/app/workspaces/.*/daily/configure"
+                },
                 "archive": {
                     "path": "/app/workspaces/:workspaceId/daily/archive",
                     "pattern": "/app/workspaces/.*/daily/archive"

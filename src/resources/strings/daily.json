@@ -1,0 +1,9 @@
+{
+    "configure": "Configure daily",
+    "configure-success": "Daily configured successfully",
+    "configure-fail": "Could not configure daily",
+    "breadcrumbs": {
+        "index": "Daily",
+        "configure": "Configure"
+    }
+}

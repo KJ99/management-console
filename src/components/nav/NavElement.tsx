@@ -9,6 +9,8 @@ import { NavLink } from "react-router-dom";
 import { v4 } from "uuid";
 import ConditionalView from "../ConditionalView";
 import styleSheet from "../../resources/styles/components/nav/NavDrawer";
+import WorkspaceRole from "../../extension/WorkspaceRole";
+import RestrictedView from "../RestrictedView";
 
 export interface INavElement {
     label: string,
@@ -17,7 +19,8 @@ export interface INavElement {
     href?: string,
     children: INavElement[],
     depth: number,
-    onClick?: (evt: any) => void
+    onClick?: (evt: any) => void,
+    permittedRoles?: WorkspaceRole[]
 }
 
 enum ElementType {
@@ -68,6 +71,7 @@ const NavElement = ({
     children,
     depth,
     onClick,
+    permittedRoles
 }: INavElement) => {
     const classes = styleSheet({ depth });
     const location = useLocation();
@@ -77,39 +81,41 @@ const NavElement = ({
     const [expanded, setExpanded] = useState<boolean>(active);
     const addtionalProps = useMemo(() => getAdditionalProps(elementType, href, onClick), [elementType, href, onClick]);
     return (
-        <Fragment>
-            <ListItem
-                className={clsx(classes.item, {
-                    [classes.linkActive]: elementType == ElementType.LINK && active,
-                    [classes.linkItem]: elementType == ElementType.LINK
-                })}
-                {...addtionalProps}
-            >
-                {icon && createElement(icon!)}
-                <Typography className={classes.itemTitle}>{label}</Typography>
-                <ConditionalView condition={elementType == ElementType.SECTION}>
-                    <>
-                        <Box className={classes.divider}></Box>
-                        <IconButton onClick={() => setExpanded(!expanded)}>
-                            <ConditionalView
-                                condition={expanded} 
-                                otherwise={<KeyboardArrowDown />}
-                            >
-                                <KeyboardArrowUp />    
-                            </ConditionalView>
-                        </IconButton>
-                    </>
-                </ConditionalView>
-            </ListItem>
-            <Collapse in={elementType == ElementType.SECTION && expanded}>
-                {children.map((child) => (
-                    <NavElement
-                        key={v4()}
-                        {...child}
-                    />
-                ))}
-            </Collapse>
-        </Fragment>
+        <RestrictedView permittedRoles={permittedRoles}>
+            <Fragment>
+                <ListItem
+                    className={clsx(classes.item, {
+                        [classes.linkActive]: elementType == ElementType.LINK && active,
+                        [classes.linkItem]: elementType == ElementType.LINK
+                    })}
+                    {...addtionalProps}
+                >
+                    {icon && createElement(icon!)}
+                    <Typography className={classes.itemTitle}>{label}</Typography>
+                    <ConditionalView condition={elementType == ElementType.SECTION}>
+                        <>
+                            <Box className={classes.divider}></Box>
+                            <IconButton onClick={() => setExpanded(!expanded)}>
+                                <ConditionalView
+                                    condition={expanded} 
+                                    otherwise={<KeyboardArrowDown />}
+                                >
+                                    <KeyboardArrowUp />    
+                                </ConditionalView>
+                            </IconButton>
+                        </>
+                    </ConditionalView>
+                </ListItem>
+                <Collapse in={elementType == ElementType.SECTION && expanded}>
+                    {children.map((child) => (
+                        <NavElement
+                            key={v4()}
+                            {...child}
+                        />
+                    ))}
+                </Collapse>
+            </Fragment>
+        </RestrictedView>
     )
 }
 

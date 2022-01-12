@@ -5,6 +5,7 @@
   "dependencies": {
     "@automapper/classes": "^7.1.1",
     "@automapper/core": "^7.1.1",
+    "@date-io/date-fns": "^2.11.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.5",
@@ -29,6 +30,7 @@
     "change-case": "^4.1.2",
     "class-transformer": "^0.5.1",
     "clsx": "^1.1.1",
+    "date-fns": "^2.28.0",
     "fetch-mock": "^9.11.0",
     "formik": "^2.2.9",
     "history": "^5.2.0",
