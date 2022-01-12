@@ -1,5 +1,6 @@
 {
     "reports-title": "$1 reports",
+    "archive-title": "Daily Archive",
     "today": "Today", 
     "last-time": "Last Time",
     "problems": "Problems",
@@ -9,6 +10,8 @@
     "members-without-reports": "We are still waiting for reports from",
     "breadcrumbs": {
         "index": "Daily",
-        "configure": "Configure"
-    }
+        "configure": "Configure",
+        "archive": "Archive"
+    },
+    "available-days": "Days when reports were sent"
 }
