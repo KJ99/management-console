@@ -1,7 +1,12 @@
 {
+    "reports-title": "$1 reports",
+    "today": "Today", 
+    "last-time": "Last Time",
+    "problems": "Problems",
     "configure": "Configure daily",
     "configure-success": "Daily configured successfully",
     "configure-fail": "Could not configure daily",
+    "members-without-reports": "We are still waiting for reports from",
     "breadcrumbs": {
         "index": "Daily",
         "configure": "Configure"

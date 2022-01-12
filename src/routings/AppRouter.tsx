@@ -10,6 +10,7 @@ import paths from './paths.json';
 import AppLayout from '../layouts/AppLayout';
 import ProfileView from '../views/ProfileView';
 import ConfigureDailyView from '../views/daily/ConfigureDailyView';
+import DailyReportsView from '../views/daily/DailyReportsView';
 
 const AppRouter = () => {
     return (
@@ -37,7 +38,7 @@ const AppRouter = () => {
                                 element={<Navigate to={paths.app.workspaces.dashboardIndexRedirect} replace />} 
                             />
                             <Route path={paths.app.workspaces.details.path} element={<WorkspaceDetailsView />} />
-                            <Route path={paths.app.workspaces.daily.day.path} element={<p>Coming soon...</p>} />
+                            <Route path={paths.app.workspaces.daily.day.path} element={<DailyReportsView />} />
                             <Route path={paths.app.workspaces.daily.configure.path} element={<ConfigureDailyView />} />
                             <Route path={paths.app.workspaces.daily.archive.path} element={<p>Coming soon...</p>} />
                             <Route path={paths.app.workspaces.planning.incoming.path} element={<p>Coming soon...</p>} />
