@@ -13,5 +13,6 @@
     "pin-expired": "Your verification PIN has been expired. Please use 'Resend verification' option",
     "user-verified": "User is already verified",
     "account-not-verified": "Your account is not verified. Please verify your account at first",
-    "accept-terms": "Please accept terms before continue"
+    "accept-terms": "Please accept terms before continue",
+    "date-in-future": "This field should contain a future date"
 }

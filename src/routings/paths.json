@@ -34,6 +34,10 @@
                 "pattern": "/app/workspaces/.*/daily/.*"
             },
             "planning": {
+                "index": {
+                    "path": "/app/workspaces/:workspaceId/plannings",
+                    "pattern": "/app/workspaces/.*/plannings"
+                },
                 "create": {
                     "path": "/app/workspaces/:workspaceId/plannings/create",
                     "pattern": "/app/workspaces/.*/plannings/create"

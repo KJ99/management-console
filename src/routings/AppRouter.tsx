@@ -12,6 +12,7 @@ import ProfileView from '../views/ProfileView';
 import ConfigureDailyView from '../views/daily/ConfigureDailyView';
 import DailyReportsView from '../views/daily/DailyReportsView';
 import DailyArchiveView from '../views/daily/DailyArchiveView';
+import PlanningCreateView from '../views/plannings/PlanningCreateView';
 
 const AppRouter = () => {
     return (
@@ -43,7 +44,7 @@ const AppRouter = () => {
                             <Route path={paths.app.workspaces.daily.configure.path} element={<ConfigureDailyView />} />
                             <Route path={paths.app.workspaces.daily.archive.path} element={<DailyArchiveView />} />
                             <Route path={paths.app.workspaces.planning.incoming.path} element={<p>Coming soon...</p>} />
-                            <Route path={paths.app.workspaces.planning.create.path} element={<p>Coming soon...</p>} />
+                            <Route path={paths.app.workspaces.planning.create.path} element={<PlanningCreateView />} />
                             <Route path={paths.app.workspaces.planning.archive.path} element={<p>Coming soon...</p>} />
                             <Route path={paths.app.workspaces.retro.incoming.path} element={<p>Coming soon...</p>} />
                             <Route path={paths.app.workspaces.retro.create.path} element={<p>Coming soon...</p>} />

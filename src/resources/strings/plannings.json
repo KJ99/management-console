@@ -1,0 +1,11 @@
+{
+    "field-title": "Title",
+    "start-date": "Starts at",
+    "breadcrumbs": {
+        "index": "Plannings"
+    },
+    "create": "Create",
+    "create-title": "Create Planning",
+    "create-success": "Planning created successfully",
+    "create-fail": "Could not create planning"
+}

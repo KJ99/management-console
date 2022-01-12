@@ -31,7 +31,6 @@ const DailyArchivePage = ({
     onPageChange
 }: Props) => {
     const panelClasses = panelDashboard();
-    console.log(days, page);
     return (
         <Page title={strings('/daily/archive-title')}>
             <Box className={panelClasses.pageHeader}>

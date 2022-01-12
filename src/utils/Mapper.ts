@@ -36,6 +36,9 @@ import TeamModel from '../models/team/TeamModel';
 import { MemberRolesFormModel } from '../components/forms/MemberRolesForm';
 import WorkspaceTheme from '../extension/WorkspaceTheme';
 import { ProfileFormModel } from '../components/forms/ProfileEditForm';
+import { PlanningFormModel } from '../components/forms/PlanningForm';
+import PlanningModel from '../models/planning/PlanningModel';
+import moment from 'moment';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
@@ -118,3 +121,9 @@ mapper.createMap(User, ProfileFormModel)
     .forMember((dest) => dest.picture, mapFrom(() => null));
 mapper.createMap(ProfileFormModel, ProfileUpdateModel)
     .forMember((dest) => dest.pictureId, mapFrom(() => null));
+mapper.createMap(PlanningFormModel, PlanningModel)
+    .forMember(
+        (dest) => dest.startDate,
+        mapFrom((src) => src.startDate != null ? src.startDate.format('YYYY-MM-DD HH:mm:ss') : null)
+    )
+    .forMember((dest) => dest.teamId, mapFrom(() => null));

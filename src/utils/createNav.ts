@@ -61,7 +61,8 @@ const createNav = (workspaceId: any): INavElement[] => [
                 href: preparePath(paths.app.workspaces.planning.create.path, { workspaceId }),
                 pattern: paths.app.workspaces.planning.create.pattern,
                 depth: 1,
-                children: []
+                children: [],
+                permittedRoles: [WorkspaceRole.SCRUM_MASTER]
             },
             {
                 label: 'Incoming',

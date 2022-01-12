@@ -9,6 +9,8 @@ import dropzone from './dropzone.json';
 import breadcrumbs from './breadcrumbs.json';
 import profile from './profile.json';
 import daily from './daily.json';
+import plannings from './plannings.json';
+
 
 export default {
     registration,
@@ -21,5 +23,6 @@ export default {
     dropzone,
     breadcrumbs,
     profile,
-    daily
+    daily,
+    plannings
 };
