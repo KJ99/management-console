@@ -2,10 +2,14 @@
     "field-title": "Title",
     "start-date": "Starts at",
     "breadcrumbs": {
-        "index": "Plannings"
+        "index": "Plannings",
+        "incoming": "Incoming"
     },
     "create": "Create",
     "create-title": "Create Planning",
     "create-success": "Planning created successfully",
-    "create-fail": "Could not create planning"
+    "create-fail": "Could not create planning",
+    "incoming-title": "Incoming Plannings",
+    "all-scheduled": "All scheduled plannings",
+    "not-scheduled": "It seems you have no scheduled planning"
 }
