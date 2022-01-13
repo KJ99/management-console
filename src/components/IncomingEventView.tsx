@@ -2,9 +2,11 @@ import { Search, Add } from "@mui/icons-material";
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import moment from "moment";
 import { NavLink } from "react-router-dom";
+import WorkspaceRole from "../extension/WorkspaceRole";
 import IEvent from "../models/IEvent";
 import styleSheet from "../resources/styles/components/IncomingEventView";
 import ConditionalView from "./ConditionalView";
+import RestrictedView from "./RestrictedView";
 
 export type Props = {
     strings: (name: any, ...args: any[]) => string,
@@ -38,15 +40,17 @@ const IncomingEventView = ({
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            startIcon={<Add />}
-                            component={NavLink}
-                            to={createUrl}
-                        >
-                            {strings('/plannings/create')}
-                        </Button>
+                        <RestrictedView permittedRoles={[WorkspaceRole.SCRUM_MASTER]}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                startIcon={<Add />}
+                                component={NavLink}
+                                to={createUrl}
+                            >
+                                {strings('/plannings/create')}
+                            </Button>
+                        </RestrictedView>
                     </CardActions>
                 </Card>
             }

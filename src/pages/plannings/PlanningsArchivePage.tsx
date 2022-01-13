@@ -10,21 +10,22 @@ import ListView from "../../components/ListView";
 import ConditionalView from "../../components/ConditionalView";
 import PageLoader from "../../components/PageLoader";
 import { ReactElement } from "react";
+import Planning from "../../models/planning/Planning";
 
 export type Props = {
     strings: (name: any, ...args: any[]) => string
     loaded: boolean,
-    days: string[],
+    data: Planning[],
     page: number,
     pagesTotal: number,
     workspace?: Team,
     onPageChange: (page: number) => void
 }
 
-const DailyArchivePage = ({
+const PlanningsArchivePage = ({
     strings,
     loaded,
-    days,
+    data,
     page,
     pagesTotal,
     workspace,
@@ -32,7 +33,7 @@ const DailyArchivePage = ({
 }: Props) => {
     const panelClasses = panelDashboard();
     return (
-        <Page title={strings('/daily/archive-title')}>
+        <Page title={strings('/plannings/archive-title')}>
             <Box className={panelClasses.pageHeader}>
                 <Box className={panelClasses.pageTitleArea}>
                     <Breadcrumbs aria-label="breadcrumb">
@@ -62,22 +63,21 @@ const DailyArchivePage = ({
                             component={NavLink} 
                             to={
                                 preparePath(
-                                    paths.app.workspaces.daily.day.path, 
+                                    paths.app.workspaces.planning.index.path,
                                     { 
-                                        workspaceId: workspace?.id,
-                                        day: moment().format('YYYY-MM-DD')
+                                        workspaceId: workspace?.id
                                     }
                                 )
                             }
                         >
-                            {strings('/daily/breadcrumbs/index')}
+                            {strings('/plannings/breadcrumbs/index')}
                         </Link>
                         <Typography className={panelClasses.currentBreadcrumbsItem}>
-                            {strings('/daily/breadcrumbs/archive')}
+                            {strings('/plannings/archive')}
                         </Typography>
                     </Breadcrumbs>
                     <Typography className={panelClasses.pageTitle}>
-                        {strings('/daily/archive-title')}
+                        {strings('/plannings/archive-title')}
                     </Typography>
                 </Box>
             </Box>
@@ -85,19 +85,20 @@ const DailyArchivePage = ({
                 <Card>
                     <CardContent>
                         <ListView
-                            title={strings('/daily/available-days')}
-                            data={days}
-                            getRowTitle={(val) => val}
+                            title={strings('/plannings/completed-plannings')}
+                            data={data}
+                            getRowTitle={(planning) => planning.title}
+                            getRowSubtitle={(planning) => moment(planning.startDate).format('LLLL')}
                             page={page}
                             totalPages={pagesTotal}
                             onPageChange={onPageChange}
                             getActionHref={
-                                (day) =>
+                                (planning) =>
                                     preparePath(
-                                        paths.app.workspaces.daily.day.path, 
+                                        paths.app.workspaces.planning.details, 
                                         { 
                                             workspaceId: workspace?.id,
-                                            day
+                                            planningId: planning?.id
                                         }
                                     )
                                 }
@@ -109,13 +110,13 @@ const DailyArchivePage = ({
     );
 }
 
-DailyArchivePage.defaultProps ={
+PlanningsArchivePage.defaultProps ={
     strings: (name: any, ...args: any[]) => '',
     loaded: false,
-    days: [],
+    data: [],
     page: 0,
     pagesTotal: 0,
     onPageChange: (page: number) => {}
 }
 
-export default DailyArchivePage;
+export default PlanningsArchivePage;

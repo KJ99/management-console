@@ -11,5 +11,8 @@
     "create-fail": "Could not create planning",
     "incoming-title": "Incoming Plannings",
     "all-scheduled": "All scheduled plannings",
-    "not-scheduled": "It seems you have no scheduled planning"
+    "not-scheduled": "It seems you have no scheduled planning",
+    "archive-title": "Plannings Archive",
+    "archive": "Archive",
+    "completed-plannings": "Completed Plannings"
 }
