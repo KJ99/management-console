@@ -3,6 +3,7 @@ import { Grid, TextField } from "@mui/material";
 import { FormikProps } from "formik";
 import { Moment } from "moment";
 import styleSheet from "../../resources/styles/components/forms";
+import ConditionalView from "../ConditionalView";
 
 export class PlanningFormModel {
     title?: string;
@@ -11,10 +12,11 @@ export class PlanningFormModel {
 
 export type Props = {
     strings: (name: any, ...args: any[]) => string,
-    formik: FormikProps<PlanningFormModel>
+    formik: FormikProps<PlanningFormModel>,
+    hideSave: boolean
 }
 
-const PlanningForm = ({ strings, formik }: Props) => {
+const PlanningForm = ({ strings, formik, hideSave }: Props) => {
     const classes = styleSheet();
     const {
         values,
@@ -59,19 +61,25 @@ const PlanningForm = ({ strings, formik }: Props) => {
                         )}
                     />
                 </Grid>
-                <Grid item className={classes.submitRow}>
-                    <LoadingButton
-                        loading={isSubmitting}
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                    >
-                        {strings('/base/save')}
-                    </LoadingButton>
-                </Grid>
+                <ConditionalView condition={!hideSave}>
+                    <Grid item className={classes.submitRow}>
+                        <LoadingButton
+                            loading={isSubmitting}
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                        >
+                            {strings('/base/save')}
+                        </LoadingButton>
+                    </Grid>
+                </ConditionalView>
             </Grid>
         </form>
     );
 }
+
+PlanningForm.defaultProps = {
+    hideSave: false
+};
 
 export default PlanningForm;

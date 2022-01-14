@@ -10,5 +10,7 @@
     "close": "Close",
     "yes": "Yes",
     "no": "No",
-    "start": "Start"
+    "start": "Start",
+    "create": "Create",
+    "delete": "Delete"
 }

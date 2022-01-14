@@ -21,6 +21,7 @@ import MemberRolesForm, { MemberRolesFormModel } from "../components/forms/Membe
 import WorkspaceRole from "../extension/WorkspaceRole";
 import RestrictedView from "../components/RestrictedView";
 import WorkspaceForm, { WorkspaceFormModel } from "../components/forms/WorkspaceForm";
+import { LoadingButton } from "@mui/lab";
 
 export type Props = {
     strings: (name?: string, ...args: any[]) => string
@@ -148,7 +149,7 @@ const WorkspaceDetailsPage = ({
                             action={
                                 editMode ? (
                                     <RestrictedView permittedRoles={[WorkspaceRole.OWNER, WorkspaceRole.ADMIN]}>
-                                        <Grid container spacing={3}>
+                                        <Grid container spacing={1}>
                                             <Grid item>
                                                 <Button
                                                     variant="outlined"
@@ -159,13 +160,14 @@ const WorkspaceDetailsPage = ({
                                                 </Button>
                                             </Grid>
                                             <Grid item>
-                                                <Button
+                                                <LoadingButton
                                                     variant="contained"
                                                     color="primary"
                                                     onClick={workspaceEditFormik.submitForm}
+                                                    loading={workspaceEditFormik.isSubmitting}
                                                 >
                                                     {strings('/base/save')}
-                                                </Button>
+                                                </LoadingButton>
                                             </Grid>
                                         </Grid>
                                     </RestrictedView>

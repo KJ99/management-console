@@ -127,3 +127,13 @@ mapper.createMap(PlanningFormModel, PlanningModel)
         mapFrom((src) => src.startDate != null ? src.startDate.format('YYYY-MM-DD HH:mm:ss') : null)
     )
     .forMember((dest) => dest.teamId, mapFrom(() => null));
+mapper.createMap(Planning, PlanningFormModel)
+    .forMember(
+        (dest) => dest.startDate,
+        mapFrom((src) => src.startDate != null ? moment(src.startDate, 'YYYY-MM-DD HH:mm:ss') : null)
+    );
+mapper.createMap(PlanningFormModel, PlanningUpdateModel)
+    .forMember(
+        (dest) => dest.startDate,
+        mapFrom((src) => src.startDate != null ? src.startDate.format('YYYY-MM-DD HH:mm:ss') : null)
+    );

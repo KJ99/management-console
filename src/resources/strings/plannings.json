@@ -1,5 +1,6 @@
 {
     "field-title": "Title",
+    "field-description": "Description",
     "start-date": "Starts at",
     "breadcrumbs": {
         "index": "Plannings",
@@ -14,5 +15,27 @@
     "not-scheduled": "It seems you have no scheduled planning",
     "archive-title": "Plannings Archive",
     "archive": "Archive",
-    "completed-plannings": "Completed Plannings"
+    "completed-plannings": "Completed Plannings",
+    "details-title": "Planning Details",
+    "items-label": "Planning Items",
+    "create-item": "Create Item",
+    "edit-item": "Edit Item $1",
+    "item-create-success": "Item created successfully",
+    "item-create-fail": "Could not create the item",
+    "item-update-success": "Item updated successfully",
+    "item-update-fail": "Could not update the item",
+    "item-delete-success": "Item deleted successfully",
+    "item-delete-fail": "Could not delete the item",
+    "item-delete-confirm": "Are you sure you want to delete item $1?",
+    "import-items": "Import",
+    "import-items-success": "Items imported successfully",
+    "import-items-fail": "Could not import items",
+    "export": "Report",
+    "general-info": "General Info",
+    "update-success": "Planning Updated successfully",
+    "update-fail": "Could not update the planning",
+    "delete": "Delete",
+    "delete-confirm": "Are you sure you want to delete $1?",
+    "delete-success": "Planning deleted successfully",
+    "delete-fail": "Could not delete the planning"
 }
