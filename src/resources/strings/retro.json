@@ -1,0 +1,41 @@
+{
+    "field-title": "Title",
+    "start-date": "Start date",
+    "design": "Question set",
+    "create-title": "Create Retrospective",
+    "create-success": "Retrospective created successfully",
+    "create-fail": "Could not create a retrospective",
+    "breadcrumbs": {
+        "index": "Retrospectives"
+    },
+    "questions": {
+        "glad": "Glad",
+        "mad": "Mad",
+        "longed": "Longed for",
+        "more": "More",
+        "less": "Less",
+        "start": "Start",
+        "stop": "Stop",
+        "keep-doing": "Keep doing",
+        "start-doing": "Start doing",
+        "stop-doing": "Stop doing",
+        "well": "What did go well",
+        "not-well": "What didn't go well",
+        "improve": "What can be improved"
+    },
+    "incoming-title": "Incoming Retrospectives",
+    "all-scheduled": "All scheduled retrospectives",
+    "not-scheduled": "It seems you have no scheduled retrospectives",
+    "archive-title": "Retrospectives Archive",
+    "archive": "Archive",
+    "completed-retrospectives": "Completed Retrospectives",
+    "details-title": "Retrospective Details",
+    "export": "Report",
+    "general-info": "General Info",
+    "update-success": "Retrospective updated successfully",
+    "update-fail": "Could not update the retrospective",
+    "delete": "Delete",
+    "delete-confirm": "Are you sure you want to delete $1?",
+    "delete-success": "Retrospective deleted successfully",
+    "delete-fail": "Could not delete the retrospective"
+}

@@ -10,7 +10,7 @@ import breadcrumbs from './breadcrumbs.json';
 import profile from './profile.json';
 import daily from './daily.json';
 import plannings from './plannings.json';
-
+import retro from './retro.json';
 
 export default {
     registration,
@@ -24,5 +24,6 @@ export default {
     breadcrumbs,
     profile,
     daily,
-    plannings
+    plannings,
+    retro
 };

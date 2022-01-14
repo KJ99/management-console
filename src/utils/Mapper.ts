@@ -39,6 +39,8 @@ import { ProfileFormModel } from '../components/forms/ProfileEditForm';
 import { PlanningFormModel } from '../components/forms/PlanningForm';
 import PlanningModel from '../models/planning/PlanningModel';
 import moment from 'moment';
+import { RetrospectiveFormModel } from '../components/forms/RetrospectiveForm';
+import RetrospectiveModel from '../models/retrospective/RetrospectiveModel';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
@@ -137,3 +139,14 @@ mapper.createMap(PlanningFormModel, PlanningUpdateModel)
         (dest) => dest.startDate,
         mapFrom((src) => src.startDate != null ? src.startDate.format('YYYY-MM-DD HH:mm:ss') : null)
     );
+
+mapper.createMap(RetrospectiveFormModel, RetrospectiveModel)
+    .forMember(
+        (dest) => dest.startDate,
+        mapFrom((src) => 
+            typeof src.startDate?.format == 'function' 
+                ? src.startDate.format('YYYY-MM-DD HH:mm:ss') 
+                : null
+        )
+    )
+    .forMember((dest) => dest.teamId, mapFrom(() => null));

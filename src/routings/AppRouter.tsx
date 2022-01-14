@@ -16,6 +16,8 @@ import PlanningCreateView from '../views/plannings/PlanningCreateView';
 import IncomingPlanningsView from '../views/plannings/IncomingPlanningsView';
 import PlanningsArchiveView from '../views/plannings/PlanningsArchiveView';
 import PlanningDetailsView from '../views/plannings/PlanningDetailsView';
+import RetrospectiveCreateView from '../views/retrospectives/RetrospectiveCreateView';
+import IncomingRetrospectivesView from '../views/retrospectives/IncomingRetrospectivesView';
 
 const AppRouter = () => {
     return (
@@ -50,8 +52,8 @@ const AppRouter = () => {
                             <Route path={paths.app.workspaces.planning.create.path} element={<PlanningCreateView />} />
                             <Route path={paths.app.workspaces.planning.archive.path} element={<PlanningsArchiveView />} />
                             <Route path={paths.app.workspaces.planning.details} element={<PlanningDetailsView />} />
-                            <Route path={paths.app.workspaces.retro.incoming.path} element={<p>Coming soon...</p>} />
-                            <Route path={paths.app.workspaces.retro.create.path} element={<p>Coming soon...</p>} />
+                            <Route path={paths.app.workspaces.retro.incoming.path} element={<IncomingRetrospectivesView />} />
+                            <Route path={paths.app.workspaces.retro.create.path} element={<RetrospectiveCreateView />} />
                             <Route path={paths.app.workspaces.retro.archive.path} element={<p>Coming soon...</p>} />
                             <Route path={paths.app.workspaces.retro.actions.path} element={<p>Coming soon...</p>} />
                             <Route path="*" element={<p>Not found dashboard</p>} />

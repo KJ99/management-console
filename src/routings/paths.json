@@ -54,6 +54,10 @@
                 "pattern": "/app/workspaces/.*/plannings/.*"
             },
             "retro": {
+                "index": {
+                    "path": "/app/workspaces/:workspaceId/retrospectives",
+                    "pattern": "/app/workspaces/.*/retrospectives"
+                },
                 "create": {
                     "path": "/app/workspaces/:workspaceId/retrospectives/create",
                     "pattern": "/app/workspaces/.*/retrospectives/create"
@@ -70,6 +74,7 @@
                     "path": "/app/workspaces/:workspaceId/retrospectives/actions",
                     "pattern": "/app/workspaces/.*/retrospectives/actions"
                 },
+                "details": "/app/workspaces/:workspaceId/retrospectives/:retroId",
                 "pattern": "/app/workspaces/.*/retrospectives/.*"
             }
         }
