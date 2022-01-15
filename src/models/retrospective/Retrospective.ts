@@ -1,3 +1,4 @@
+import RetroStatus from "../../extension/RetroStatus";
 import IEvent from "../IEvent";
 import RetroConfig from "./RetroConfig";
 
@@ -7,4 +8,8 @@ export default class Retrospective implements IEvent {
     startDate?: string;
     status?: string;
     configuration?: RetroConfig;
+
+    hasStatus(requiredStatus: RetroStatus): boolean {
+        return RetroStatus[requiredStatus] === this.status;
+    }
 }

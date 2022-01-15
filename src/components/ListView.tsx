@@ -1,6 +1,7 @@
 import { ChevronRight } from "@mui/icons-material";
 import { Box, IconButton, Pagination, Typography } from "@mui/material";
-import { cloneElement, ReactElement, useCallback, useMemo } from "react";
+import clsx from "clsx";
+import { cloneElement, createElement, ReactElement, useCallback, useMemo } from "react";
 import { NavLink } from "react-router-dom";
 import { v4 } from "uuid";
 import styleSheet from "../resources/styles/components/ListView";
@@ -17,7 +18,9 @@ export type Props = {
     getActionHref?: (item: any) => string,
     onSelect: (item: any) => void,
     actionIcon?: ReactElement,
-    hideAction: boolean
+    hideAction: boolean,
+    isItemCrossedOut: (item: any) => boolean,
+    renderAction?: (item: any) => ReactElement
 };
 
 const ListView = ({
@@ -31,7 +34,9 @@ const ListView = ({
     getActionHref,
     onSelect,
     actionIcon,
-    hideAction
+    hideAction,
+    isItemCrossedOut,
+    renderAction
 }: Props) => {
     const classes = styleSheet();
     const getActionProps = useCallback((item) => {
@@ -53,19 +58,27 @@ const ListView = ({
             {data.map((item) => (
                 <Box key={v4()} className={classes.row}>
                     <Box>
-                        <Typography className={classes.rowTitle}>{getRowTitle(item)}</Typography>
+                        <Typography className={clsx(classes.rowTitle, {
+                            [classes.crossedOut]: isItemCrossedOut(item)
+                        })}>
+                            {getRowTitle(item)}
+                        </Typography>
                         {getRowSubtitle != null && (
-                            <Typography className={classes.rowSubtitle}>
+                            <Typography className={clsx(classes.rowSubtitle, {
+                                [classes.crossedOut]: isItemCrossedOut(item)
+                            })}>
                                 {getRowSubtitle(item)}
                             </Typography>
                         )}
                     </Box>
                     <ConditionalView condition={!hideAction}>
-                        <IconButton {...getActionProps(item)}>
-                            {actionIcon != null && cloneElement(actionIcon) || (
-                                <ChevronRight />
-                            )}
-                        </IconButton>
+                        {renderAction != null && cloneElement(renderAction(item)) || (
+                            <IconButton {...getActionProps(item)}>
+                                {actionIcon != null && cloneElement(actionIcon) || (
+                                    <ChevronRight />
+                                )}
+                            </IconButton>
+                        )}
                     </ConditionalView>
                 </Box>
             ))}
@@ -88,7 +101,8 @@ ListView.defaultProps = {
     totalPages: 0,
     getRowTitle: (_: any) => '',
     onSelect: (item: any) => {},
-    hideAction: false
+    hideAction: false,
+    isItemCrossedOut: (item: any) => false
 };
 
 export default ListView;

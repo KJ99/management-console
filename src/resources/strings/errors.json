@@ -14,5 +14,6 @@
     "user-verified": "User is already verified",
     "account-not-verified": "Your account is not verified. Please verify your account at first",
     "accept-terms": "Please accept terms before continue",
-    "date-in-future": "This field should contain a future date"
+    "date-in-future": "This field should contain a future date",
+    "positive-number": "This field should contain a positive number"
 }

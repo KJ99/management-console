@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, Card, CardContent, Link, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, Card, CardContent, Link, Typography } from "@mui/material";
 import Page from "../../components/Page";
 import Team from "../../models/team/Team";
 import panelDashboard from '../../resources/styles/layouts/WorkspaceDashboard';
@@ -11,13 +11,17 @@ import ConditionalView from "../../components/ConditionalView";
 import PageLoader from "../../components/PageLoader";
 import Retrospective from "../../models/retrospective/Retrospective";
 import ActionItem from "../../models/retrospective/ActionItem";
+import { prepareActionItemSubtitle } from "../../utils/RetroUtil";
+import Member from "../../models/member/Member";
+import { Check } from "@mui/icons-material";
 
 export type Props = {
     strings: (name: any, ...args: any[]) => string
     loaded: boolean,
     data: Retrospective[],
     workspace?: Team,
-    onMarkAsCompleted: (item: ActionItem) => void
+    onMarkAsCompleted: (item: ActionItem) => void,
+    teamMembers: Member[],
 }
 
 const ActionItemsPage = ({
@@ -25,7 +29,8 @@ const ActionItemsPage = ({
     loaded,
     data,
     workspace,
-    onMarkAsCompleted
+    onMarkAsCompleted,
+    teamMembers
 }: Props) => {
     const panelClasses = panelDashboard();
     return (
@@ -83,18 +88,17 @@ const ActionItemsPage = ({
                         <ListView
                             title={strings('/retro/workspace-action-items', workspace?.name)}
                             data={data}
-                            getRowTitle={(retro) => retro.title}
-                            getRowSubtitle={(retro) => moment(retro.startDate).format('LLLL')}
-                            getActionHref={
-                                (retro) =>
-                                    preparePath(
-                                        paths.app.workspaces.retro.details, 
-                                        { 
-                                            workspaceId: workspace?.id,
-                                            retroId: retro?.id
-                                        }
-                                    )
-                                }
+                            getRowTitle={(item) => item.title}
+                            getRowSubtitle={(item) => prepareActionItemSubtitle(item, teamMembers, strings)}
+                            renderAction={(item) => (
+                                <Button
+                                    variant="contained"
+                                    startIcon={<Check />}
+                                    onClick={() => onMarkAsCompleted(item)}
+                                >
+                                    {strings('/retro/action-mark-completed')}
+                                </Button>
+                            )}
                         />
                     </CardContent>
                 </Card>
@@ -107,7 +111,8 @@ ActionItemsPage.defaultProps ={
     strings: (name: any, ...args: any[]) => '',
     loaded: false,
     data: [],
-    onMarkAsCompleted: (_: ActionItem) => {}
+    onMarkAsCompleted: (_: ActionItem) => {},
+    teamMembers: []
 }
 
 export default ActionItemsPage;

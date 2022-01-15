@@ -42,5 +42,13 @@
     "action-items": "Actions",
     "workspace-action-items": "Pending $1 actions",
     "action-item-update-success": "Action updated successfully",
-    "action-item-update-fail": "Could not update the action item"
+    "action-item-update-fail": "Could not update the action item",
+    "config": "Settings",
+    "config-fields": {
+        "votes": "Votes per member",
+        "answer-time": "Answering time (minutes)",
+        "voting-time": "Voting time (minutes)"
+    },
+    "item-completed": "Completed",
+    "action-mark-completed": "Mark as completed"
 }

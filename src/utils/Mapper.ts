@@ -41,6 +41,8 @@ import PlanningModel from '../models/planning/PlanningModel';
 import moment from 'moment';
 import { RetrospectiveFormModel } from '../components/forms/RetrospectiveForm';
 import RetrospectiveModel from '../models/retrospective/RetrospectiveModel';
+import RetroDesign from '../extension/RetroDesign';
+import { RetrospectiveUpdateFormModel } from '../components/forms/RetrospectiveUpdateForm';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
@@ -150,3 +152,34 @@ mapper.createMap(RetrospectiveFormModel, RetrospectiveModel)
         )
     )
     .forMember((dest) => dest.teamId, mapFrom(() => null));
+
+mapper.createMap(RetrospectiveUpdateFormModel, RetrospectiveUpdateModel)
+    .forMember(
+        (dest) => dest.startDate,
+        mapFrom((src) => 
+            typeof src.startDate?.format == 'function' 
+                ? src.startDate.format('YYYY-MM-DD HH:mm:ss') 
+                : null
+        )
+    )
+    .forMember(
+        (dest) => dest.config,
+        mapFrom((src) => ({
+            design: src.config?.design,
+            votes: src.config?.votes,
+            votingTime: src.config?.votingTime,
+            answerTime: src.config?.answerTime
+        }))
+    );
+mapper.createMap(Retrospective, RetrospectiveUpdateFormModel)
+    .forMember(
+        (dest) => dest.startDate,
+        mapFrom((src) => src.startDate != null ? moment(src.startDate, 'YYYY-MM-DD HH:mm:ss') : null)
+    )
+    .forMember(
+        (dest) => dest.config,
+        mapFrom((src) => ({
+            ...src.configuration,
+            votes: src.configuration?.memberVotes
+        }))
+    )

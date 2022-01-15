@@ -9,6 +9,7 @@ const styleSheet = makeStyles((theme: Theme) => createStyles({
     row: {
         display: 'flex',
         justifyContent: 'space-between',
+        alignItems: 'center',
         padding: theme.spacing(1),
         borderTop: `1px solid ${theme.palette.grey[300]}`
     },
@@ -23,6 +24,9 @@ const styleSheet = makeStyles((theme: Theme) => createStyles({
         display: 'flex',
         justifyContent: 'flex-end',
         marginTop: theme.spacing(1)
+    },
+    crossedOut: {
+        textDecoration: 'line-through'
     }
 }));
 
