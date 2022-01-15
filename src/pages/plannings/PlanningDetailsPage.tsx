@@ -173,41 +173,43 @@ const PlanningDetailsPage = ({
                     title={strings('/plannings/general-info')}
                     action={ 
                         <RestrictedView permittedRoles={[WorkspaceRole.SCRUM_MASTER]}>
-                            <ConditionalView
-                                condition={!editMode && planning?.hasStatus(PlanningStatus.SCHEDULED)}
-                                otherwise={
-                                    <Fragment>
-                                        <Grid container spacing={1}>
-                                            <Grid item>
-                                                <Button
-                                                    variant="outlined"
-                                                    color="primary"
-                                                    onClick={onQuitEditMode}
-                                                >
-                                                    {strings('/base/cancel')}
-                                                </Button>
+                            <ConditionalView condition={planning?.hasStatus(PlanningStatus.SCHEDULED)}>
+                                <ConditionalView
+                                    condition={!editMode}
+                                    otherwise={
+                                        <Fragment>
+                                            <Grid container spacing={1}>
+                                                <Grid item>
+                                                    <Button
+                                                        variant="outlined"
+                                                        color="primary"
+                                                        onClick={onQuitEditMode}
+                                                    >
+                                                        {strings('/base/cancel')}
+                                                    </Button>
+                                                </Grid>
+                                                <Grid item>
+                                                    <LoadingButton
+                                                        variant="contained"
+                                                        color="primary"
+                                                        onClick={planningUpdateFormik.submitForm}
+                                                        loading={planningUpdateFormik.isSubmitting}
+                                                    >
+                                                        {strings('/base/save')}
+                                                    </LoadingButton>
+                                                </Grid>
                                             </Grid>
-                                            <Grid item>
-                                                <LoadingButton
-                                                    variant="contained"
-                                                    color="primary"
-                                                    onClick={planningUpdateFormik.submitForm}
-                                                    loading={planningUpdateFormik.isSubmitting}
-                                                >
-                                                    {strings('/base/save')}
-                                                </LoadingButton>
-                                            </Grid>
-                                        </Grid>
-                                    </Fragment>
-                                }
-                            >
-                                <Button
-                                    variant="contained"
-                                    startIcon={<Edit />}
-                                    onClick={onEnterEditMode}
+                                        </Fragment>
+                                    }
                                 >
-                                    {strings('/base/edit')}
-                                </Button>
+                                    <Button
+                                        variant="contained"
+                                        startIcon={<Edit />}
+                                        onClick={onEnterEditMode}
+                                    >
+                                        {strings('/base/edit')}
+                                    </Button>
+                                </ConditionalView>
                             </ConditionalView>
                         </RestrictedView>
                     }
@@ -279,45 +281,59 @@ const PlanningDetailsPage = ({
                 </RestrictedView>
             </Box>
             <Grid container direction="column" spacing={3}>
-                {items.map((item) => (
-                    <Grid item key={v4()}>
-                        <Card className={classes.itemCard}>
-                            <CardContent className={classes.itemCardContent}>
-                                <Grid container spacing={3} alignItems="center">
-                                    <Grid item md={6} xs={12}>
-                                        <Typography className={classes.itemTitle}>{item.title}</Typography>
+                {items.map((item) => {
+                    const contentColumnSize = item.estimation != null ? 5 : 6;
+                    return (
+                        <Grid item key={v4()}>
+                            <Card className={classes.itemCard}>
+                                <CardContent className={classes.itemCardContent}>
+                                    <Grid container spacing={3} alignItems="center">
+                                        <Grid item md={contentColumnSize} xs={12}>
+                                            <Typography 
+                                                className={classes.itemTitle}
+                                            >
+                                                {item.title}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item md={contentColumnSize} xs={12}>
+                                            <Typography>{item.description}</Typography>
+                                        </Grid>
+                                        <ConditionalView condition={item.estimation != null}>
+                                            <Grid item md={2} xs={12}>
+                                                <Typography>
+                                                    Story points: {item.estimation}
+                                                </Typography>
+                                            </Grid>
+                                        </ConditionalView>
                                     </Grid>
-                                    <Grid item md={6} xs={12}>
-                                        <Typography>{item.description}</Typography>
-                                    </Grid>
-                                </Grid>
-                            </CardContent>
-                            <RestrictedView permittedRoles={[WorkspaceRole.PRODUCT_OWNER]}>
-                                <ConditionalView condition={planning?.hasStatus(PlanningStatus.SCHEDULED)}>
-                                    <CardActions className={classes.itemActionsContainer}>
-                                        <Button
-                                            variant="contained"
-                                            startIcon={<Edit />}
-                                            className={classes.itemAction}
-                                            onClick={() => onEditItem(item)}
-                                        >
-                                            {strings('/base/edit')}
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            color="error"
-                                            startIcon={<Delete />}
-                                            className={classes.itemAction}
-                                            onClick={() => onDeleteItem(item)}
-                                        >
-                                            {strings('/base/delete')}
-                                        </Button>
-                                    </CardActions>
-                                </ConditionalView>
-                            </RestrictedView>
-                        </Card>
-                    </Grid>
-                ))}
+                                </CardContent>
+                                <RestrictedView permittedRoles={[WorkspaceRole.PRODUCT_OWNER]}>
+                                    <ConditionalView condition={planning?.hasStatus(PlanningStatus.SCHEDULED)}>
+                                        <CardActions className={classes.itemActionsContainer}>
+                                            <Button
+                                                variant="contained"
+                                                startIcon={<Edit />}
+                                                className={classes.itemAction}
+                                                onClick={() => onEditItem(item)}
+                                            >
+                                                {strings('/base/edit')}
+                                            </Button>
+                                            <Button
+                                                variant="contained"
+                                                color="error"
+                                                startIcon={<Delete />}
+                                                className={classes.itemAction}
+                                                onClick={() => onDeleteItem(item)}
+                                            >
+                                                {strings('/base/delete')}
+                                            </Button>
+                                        </CardActions>
+                                    </ConditionalView>
+                                </RestrictedView>
+                            </Card>
+                        </Grid>
+                    )
+                })}
             </Grid>
             <Dialog open={createItemDialogOpen} onClose={onCancelCreateItem}>
                 <DialogTitle>
