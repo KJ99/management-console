@@ -37,5 +37,10 @@
     "delete": "Delete",
     "delete-confirm": "Are you sure you want to delete $1?",
     "delete-success": "Retrospective deleted successfully",
-    "delete-fail": "Could not delete the retrospective"
+    "delete-fail": "Could not delete the retrospective",
+    "action-items-title": "Pending workspace actions",
+    "action-items": "Actions",
+    "workspace-action-items": "Pending $1 actions",
+    "action-item-update-success": "Action updated successfully",
+    "action-item-update-fail": "Could not update the action item"
 }
