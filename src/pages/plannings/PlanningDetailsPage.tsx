@@ -52,7 +52,8 @@ export type Props = {
     onEnterDeleteMode: () => void,
     onQuitDeleteMode: () => void,
     onDeleteConfirm: () => void,
-    deleting: boolean
+    deleting: boolean,
+    onReportDownload: () => void
 };
 
 const PlanningDetailsPage = ({
@@ -83,7 +84,8 @@ const PlanningDetailsPage = ({
     onEnterDeleteMode,
     onQuitDeleteMode,
     onDeleteConfirm,
-    deleting
+    deleting,
+    onReportDownload
 }: Props) => {
     const panelClasses = panelDashboard();
     const classes = styleSheet();
@@ -145,6 +147,7 @@ const PlanningDetailsPage = ({
                                 startIcon={<Download />}
                                 color="primary"
                                 className={panelClasses.pageAction}
+                                onClick={onReportDownload}
                             >
                                 {strings('/plannings/export')}
                             </Button>
@@ -461,7 +464,8 @@ PlanningDetailsPage.defaultProps = {
     onEnterDeleteMode: () => {},
     onQuitDeleteMode: () => {},
     onDeleteConfirm: () => {},
-    deleting: false
+    deleting: false,
+    onReportDownload: () => {}
 }
 
 export default PlanningDetailsPage;

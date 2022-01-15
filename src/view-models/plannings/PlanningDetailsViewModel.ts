@@ -23,6 +23,7 @@ import BadRequestError from "../../infrastructure/api/exceptions/BadRequestError
 import { processFormError } from "../../utils/ErrorProcessor";
 import * as PathUtil from '../../utils/PathUtil';
 import paths from '../../routings/paths.json';
+import { saveAs } from 'file-saver';
 
 const client = new PlanningsClient();
 const itemsClient = new PlanningItemsClient();
@@ -277,6 +278,16 @@ const PlanningDetailsViewModel = ({ children }: ViewModelProps) => {
         },
         [workspace, planning, enqueueSnackbar, strings, navigate]
     );
+    
+    const handleDownloadReport = useCallback(() => {
+        if (planning?.id != null) {
+            client.getPlanningReport(planning.id)
+                .then((blob) => {
+                    saveAs(blob, strings('/plannings/report-title', workspace?.name, planning.title));
+                })
+                .catch(() => enqueueSnackbar(strings('/plannings/report-fail'), { variant: 'error' }))
+        }
+    }, [planning, workspace, enqueueSnackbar, strings]);
 
     return Children.only(
         cloneElement(
@@ -309,7 +320,8 @@ const PlanningDetailsViewModel = ({ children }: ViewModelProps) => {
                 onEnterDeleteMode: handleEnterDeleteMode,
                 onQuitDeleteMode: handleQuitDeleteMode,
                 onDeleteConfirm: handleDelete,
-                deleting
+                deleting,
+                onReportDownload: handleDownloadReport
             }
         )
     );

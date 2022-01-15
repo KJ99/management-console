@@ -37,5 +37,7 @@
     "delete": "Delete",
     "delete-confirm": "Are you sure you want to delete $1?",
     "delete-success": "Planning deleted successfully",
-    "delete-fail": "Could not delete the planning"
+    "delete-fail": "Could not delete the planning",
+    "report-fail": "Could not download a report",
+    "report-title": "$1 - $2 report"
 }

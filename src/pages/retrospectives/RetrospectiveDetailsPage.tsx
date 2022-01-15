@@ -40,7 +40,8 @@ export type Props = {
     onQuitDeleteMode: () => void,
     onDeleteConfirm: () => void,
     deleting: boolean,
-    teamMembers: Member[]
+    teamMembers: Member[],
+    onReportDownload: () => void
 };
 
 const RetrospectiveDetailsPage = ({
@@ -58,7 +59,8 @@ const RetrospectiveDetailsPage = ({
     onQuitDeleteMode,
     onDeleteConfirm,
     deleting,
-    teamMembers
+    teamMembers,
+    onReportDownload
 }: Props) => {
     const panelClasses = panelDashboard();
     const classes = styleSheet();
@@ -120,6 +122,7 @@ const RetrospectiveDetailsPage = ({
                                 startIcon={<Download />}
                                 color="primary"
                                 className={panelClasses.pageAction}
+                                onClick={onReportDownload}
                             >
                                 {strings('/retro/export')}
                             </Button>
@@ -263,7 +266,8 @@ RetrospectiveDetailsPage.defaultProps = {
     onQuitDeleteMode: () => {},
     onDeleteConfirm: () => {},
     deleting: false,
-    teamMembers: []
+    teamMembers: [],
+    onReportDownload: () => {}
 }
 
 export default RetrospectiveDetailsPage;

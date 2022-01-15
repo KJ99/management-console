@@ -21,6 +21,7 @@ import RetrospectiveUpdateModel from "../../models/retrospective/RetrospectiveUp
 import RetroDesign from "../../extension/RetroDesign";
 import Member from "../../models/member/Member";
 import MembersClient from "../../infrastructure/clients/teams-api/MembersClient";
+import saveAs from "file-saver";
 
 const client = new RetrospectivesClient();
 const itemsClient = new ActionItemsClient();
@@ -164,6 +165,16 @@ const RetrospectiveDetailsViewModel = ({ children }: ViewModelProps) => {
         },
         [workspace, retrospective, enqueueSnackbar, strings, navigate]
     );
+    
+    const handleDownloadReport = useCallback(() => {
+        if (retrospective?.id != null) {
+            client.getReport(retrospective.id)
+                .then((blob) => {
+                    saveAs(blob, strings('/plannings/report-title', workspace?.name, retrospective.title));
+                })
+                .catch(() => enqueueSnackbar(strings('/plannings/report-fail'), { variant: 'error' }))
+        }
+    }, [retrospective, workspace, enqueueSnackbar, strings]);
 
     return Children.only(
         cloneElement(
@@ -183,7 +194,8 @@ const RetrospectiveDetailsViewModel = ({ children }: ViewModelProps) => {
                 onQuitDeleteMode: handleQuitDeleteMode,
                 onDeleteConfirm: handleDelete,
                 deleting,
-                teamMembers
+                teamMembers,
+                onReportDownload: handleDownloadReport
             }
         )
     );

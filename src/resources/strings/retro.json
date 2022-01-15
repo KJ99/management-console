@@ -50,5 +50,7 @@
         "voting-time": "Voting time (minutes)"
     },
     "item-completed": "Completed",
-    "action-mark-completed": "Mark as completed"
+    "action-mark-completed": "Mark as completed",
+    "report-fail": "Could not download a report",
+    "report-title": "$1 - $2 report"
 }
