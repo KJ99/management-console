@@ -9,6 +9,9 @@ import Planning from "../../models/planning/Planning";
 import PlanningsClient from "../../infrastructure/clients/planning-poker/PlanningsClient";
 import PlanningStatus from "../../extension/PlanningStatus";
 import IncomingPlanning from "../../models/planning/IncomingPlanning";
+import { useNavigate } from "react-router";
+import { preparePath } from "../../utils/PathUtil";
+import paths from '../../routings/paths.json';
 
 const client = new PlanningsClient();
 
@@ -21,6 +24,7 @@ const IncomingPlanningsViewModel = ({ children }: ViewModelProps) => {
     const [incoming, setIncoming] = useState<IncomingPlanning|undefined>();
     const [page, setPage] = useState<number>(0);
     const [pagesTotal, setPagesTotal] = useState<number>(0);
+    const navigate = useNavigate();
 
     const load = useCallback((teamId: number, page: number) => {
         client.getIncomingPlanning({ teamId })
@@ -53,6 +57,30 @@ const IncomingPlanningsViewModel = ({ children }: ViewModelProps) => {
         load(workspace?.id ?? -1, page);
     }, [load]);
 
+    const handleStart = useCallback(
+        async () => {
+            if (incoming?.data?.id != null && workspace != null) {
+                try {
+                    if (incoming.data.status === PlanningStatus[PlanningStatus.SCHEDULED]) {
+                        await client.startPlanning(incoming.data.id);
+                    }
+                    const token = await client.getPlanningToken(incoming.data.id);
+                    navigate(paths.app.meetups.planning, {
+                        state: {
+                            workspaceId: workspace.id,
+                            planningId: incoming.data.id,
+                            token: token.accessToken
+                        }
+                    });
+                } catch (e) {
+                    console.warn(e);
+                    enqueueSnackbar(strings('/plannings/live/start-fail'), { variant: 'error' });
+                }
+            }
+        }, 
+        [enqueueSnackbar, strings, incoming, workspace]
+    );
+
     return Children.only(
         cloneElement(
             children,
@@ -64,7 +92,8 @@ const IncomingPlanningsViewModel = ({ children }: ViewModelProps) => {
                 workspace,
                 page,
                 pagesTotal,
-                onPageChange: handlePageChange
+                onPageChange: handlePageChange,
+                onEventStart: handleStart
             }
         )
     );

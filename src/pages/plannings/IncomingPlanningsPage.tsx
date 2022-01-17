@@ -21,7 +21,8 @@ export type Props = {
     scheduled: Planning[],
     page: number,
     pagesTotal: number,
-    onPageChange: (page: number) => void
+    onPageChange: (page: number) => void,
+    onEventStart: () => void
 };
 
 const IncomingPlanningsPage = ({ 
@@ -32,7 +33,8 @@ const IncomingPlanningsPage = ({
     scheduled,
     page,
     pagesTotal,
-    onPageChange
+    onPageChange,
+    onEventStart
 }: Props) => {
     const panelClasses = panelDashboard();
     return (
@@ -91,6 +93,7 @@ const IncomingPlanningsPage = ({
                             strings={strings}
                             event={incoming?.data}
                             scheduled={incoming?.scheduled}
+                            onStart={onEventStart}
                             createUrl={
                                 preparePath(
                                     paths.app.workspaces.planning.create.path,
@@ -141,7 +144,8 @@ IncomingPlanningsPage.defaultProps = {
     scheduled: [],
     page: 0,
     pagesTotal: 0,
-    onPageChange: () => {}
+    onPageChange: () => {},
+    onEventStart: () => {}
 }
 
 export default IncomingPlanningsPage;

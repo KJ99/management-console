@@ -51,7 +51,8 @@
                     "pattern": "/app/workspaces/.*/plannings/archive"
                 },
                 "details": "/app/workspaces/:workspaceId/plannings/:planningId",
-                "pattern": "/app/workspaces/.*/plannings/.*"
+                "pattern": "/app/workspaces/.*/plannings/.*",
+                "live": "/app/workspaces/:workspaceId/plannings/:planningId/live"
             },
             "retro": {
                 "index": {
@@ -77,6 +78,9 @@
                 "details": "/app/workspaces/:workspaceId/retrospectives/:retroId",
                 "pattern": "/app/workspaces/.*/retrospectives/.*"
             }
+        },
+        "meetups": {
+            "planning" : "/app/meetups/planning"
         }
     }
 }

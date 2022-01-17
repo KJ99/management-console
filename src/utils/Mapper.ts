@@ -43,6 +43,8 @@ import { RetrospectiveFormModel } from '../components/forms/RetrospectiveForm';
 import RetrospectiveModel from '../models/retrospective/RetrospectiveModel';
 import RetroDesign from '../extension/RetroDesign';
 import { RetrospectiveUpdateFormModel } from '../components/forms/RetrospectiveUpdateForm';
+import PlanningItemPayload from '../models/live/payloads/PlanningItemPayload';
+import mapEstimation from './mapEstimation';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
@@ -183,3 +185,8 @@ mapper.createMap(Retrospective, RetrospectiveUpdateFormModel)
             votes: src.configuration?.memberVotes
         }))
     )
+mapper.createMap(PlanningItemPayload, PlanningItem)
+    .forMember(
+        (dest) => dest.estimation,
+        mapFrom((src) => mapEstimation(src.estimation))
+    );

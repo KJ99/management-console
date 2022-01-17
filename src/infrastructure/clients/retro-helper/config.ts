@@ -1,5 +1,6 @@
 export default {
     host: process.env.REACT_APP_RETRO_HELPER_HOST!,
+    liveHost: process.env.REACT_APP_RETRO_HELPER_LIVE_HOST!,
     endpoints: {
         retrospectives: {
             base: '/v1/retrospectives',

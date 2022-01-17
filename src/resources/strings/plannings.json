@@ -39,5 +39,27 @@
     "delete-success": "Planning deleted successfully",
     "delete-fail": "Could not delete the planning",
     "report-fail": "Could not download a report",
-    "report-title": "$1 - $2 report"
+    "report-title": "$1 - $2 report",
+    "live": {
+        "title": "$1 - Live",
+        "start-success": "Planning started successfully",
+        "start-fail": "Could not start the planning",
+        "run": "Run",
+        "to-estimate": "Items to estimate",
+        "collapse-desc": "Collapse description",
+        "expand-desc": "Expand description",
+        "voters": "Participants who voted",
+        "stop-voting": "Stop",
+        "votes": "Voting result",
+        "clear-votes": "Clear",
+        "estimate": "Estimate",
+        "estimated": "Estimated items",
+        "estimate-item": "Estimate $1",
+        "completed": "Hurray! You have completed Planning $1!",
+        "see-results": "See results",
+        "load-fail": "Could not load data",
+        "member-join": "Member $1 $2 has joined the session",
+        "member-left": "Member $1 $2 has left the session",
+        "connected": "Connected"
+    }
 }
