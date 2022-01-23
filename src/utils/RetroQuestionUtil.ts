@@ -1,8 +1,30 @@
 import IRetroQuestion from "../extension/IRetroQuestion";
 import RetroDesign from "../extension/RetroDesign";
 import RetroQuestionKey from "../extension/RetroQuestionKey";
+import Answer from "../models/retrospective/Answer";
+
+const ColumnLabels = {
+    [RetroQuestionKey[RetroQuestionKey.MORE]]: '/retro/questions/more',
+    [RetroQuestionKey[RetroQuestionKey.LESS]]: '/retro/questions/less',
+    [RetroQuestionKey[RetroQuestionKey.START]]: '/retro/questions/start',
+    [RetroQuestionKey[RetroQuestionKey.STOP]]: '/retro/questions/stop',
+    [RetroQuestionKey[RetroQuestionKey.KEEP]]: '/retro/questions/keep-doing',
+    [RetroQuestionKey[RetroQuestionKey.START]]: '/retro/questions/start-doing',
+    [RetroQuestionKey[RetroQuestionKey.STOP]]: '/retro/questions/stop-doing',
+    [RetroQuestionKey[RetroQuestionKey.GLAD]]: '/retro/questions/glad',
+    [RetroQuestionKey[RetroQuestionKey.MAD]]: '/retro/questions/mad',
+    [RetroQuestionKey[RetroQuestionKey.LONGED]]: '/retro/questions/longed',
+    [RetroQuestionKey[RetroQuestionKey.WELL]]: '/retro/questions/well',
+    [RetroQuestionKey[RetroQuestionKey.NOT_WELL]]: '/retro/questions/not-well',
+    [RetroQuestionKey[RetroQuestionKey.IMPROVE]]: '/retro/questions/improve',
+}
+
+export const getAnswerColumnLabel = (answer: Answer) => {
+    return answer.column != null ? ColumnLabels[answer.column] ?? '' : '';
+}
 
 export const getQuestions = (design: string): IRetroQuestion[] => {
+    console.log(design);
     let questions: IRetroQuestion[];
     switch(design) {
         case RetroDesign[RetroDesign.MLSS]:

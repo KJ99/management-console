@@ -9,6 +9,8 @@ import RetrospectivesClient from "../../infrastructure/clients/retro-helper/Retr
 import Retrospective from "../../models/retrospective/Retrospective";
 import IncomingRetro from "../../models/retrospective/IncomingRetro";
 import RetroStatus from "../../extension/RetroStatus";
+import paths from '../../routings/paths.json';
+import { useNavigate } from "react-router";
 
 const client = new RetrospectivesClient();
 
@@ -21,6 +23,7 @@ const IncomingRetrospectivesViewModel = ({ children }: ViewModelProps) => {
     const [incoming, setIncoming] = useState<IncomingRetro|undefined>();
     const [page, setPage] = useState<number>(0);
     const [pagesTotal, setPagesTotal] = useState<number>(0);
+    const navigate = useNavigate();
 
     const load = useCallback((teamId: number, page: number) => {
         client.getIncoming({ teamId })
@@ -53,6 +56,31 @@ const IncomingRetrospectivesViewModel = ({ children }: ViewModelProps) => {
         load(workspace?.id ?? -1, page);
     }, [load]);
 
+    
+    const handleStart = useCallback(
+        async () => {
+            if (incoming?.data?.id != null && workspace != null) {
+                try {
+                    if (incoming.data.status === RetroStatus[RetroStatus.SCHEDULED]) {
+                        await client.startRetro(incoming.data.id);
+                    }
+                    const token = await client.getToken(incoming.data.id);
+                    navigate(paths.app.meetups.retro, {
+                        state: {
+                            workspaceId: workspace.id,
+                            retroId: incoming.data.id,
+                            token: token.accessToken
+                        }
+                    });
+                } catch (e) {
+                    console.warn(e);
+                    enqueueSnackbar(strings('/plannings/live/start-fail'), { variant: 'error' });
+                }
+            }
+        }, 
+        [enqueueSnackbar, strings, incoming, workspace]
+    );
+
     return Children.only(
         cloneElement(
             children,
@@ -64,7 +92,8 @@ const IncomingRetrospectivesViewModel = ({ children }: ViewModelProps) => {
                 workspace,
                 page,
                 pagesTotal,
-                onPageChange: handlePageChange
+                onPageChange: handlePageChange,
+                onStart: handleStart
             }
         )
     );

@@ -22,6 +22,7 @@ import RetrospectivesArchiveView from '../views/retrospectives/RetrospectivesArc
 import ActionItemsView from '../views/retrospectives/ActionItemsView';
 import RetrospectiveDetailsView from '../views/retrospectives/RetrospectiveDetailsView';
 import PlanningLiveView from '../views/plannings/PlanningLiveView';
+import RetrospectiveLiveView from '../views/retrospectives/RetrospeciveLiveView';
 
 const AppRouter = () => {
     return (
@@ -64,6 +65,7 @@ const AppRouter = () => {
                             <Route path="*" element={<p>Not found dashboard</p>} />
                         </Route>
                         <Route path={paths.app.meetups.planning} element={<PlanningLiveView />} />
+                        <Route path={paths.app.meetups.retro} element={<RetrospectiveLiveView />} />
                         <Route path={'*'} element={<p>not found restricted</p>} />
                     </Route>
                 </Routes>

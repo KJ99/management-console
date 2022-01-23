@@ -19,6 +19,12 @@ export default {
         actionItems: {
             base: '/v1/actions',
             particular: '/:id'
+        },
+        live: {
+            base: '/retro',
+            members: '/members/:retroId',
+            status: '/status/:retroId',
+            answers: '/answers/:retroId'
         }
     }
 }

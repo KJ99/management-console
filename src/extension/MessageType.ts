@@ -6,7 +6,11 @@ enum MessageType {
     VOTING_RESULT,
     MEMBER_VOTED,
     ITEM_ESTIMATED,
-    PLANNING_COMPLETED
+    PLANNING_COMPLETED,
+    ANSWER_CREATED,
+    ANSWER_DELETED,
+    STATUS_CHANGED,
+    RETRO_FINISHED
 };
 
 export default MessageType;

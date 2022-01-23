@@ -21,7 +21,8 @@ export type Props = {
     scheduled: Retrospective[],
     page: number,
     pagesTotal: number,
-    onPageChange: (page: number) => void
+    onPageChange: (page: number) => void,
+    onStart: () => void
 };
 
 const IncomingRetrospectivesPage = ({ 
@@ -32,7 +33,8 @@ const IncomingRetrospectivesPage = ({
     scheduled,
     page,
     pagesTotal,
-    onPageChange
+    onPageChange,
+    onStart
 }: Props) => {
     const panelClasses = panelDashboard();
     return (
@@ -97,6 +99,7 @@ const IncomingRetrospectivesPage = ({
                                     { workspaceId: workspace?.id }
                                 )
                             }
+                            onStart={onStart}
                         />
                     </Grid>
                     <ConditionalView condition={scheduled.length > 0}> 
@@ -141,7 +144,8 @@ IncomingRetrospectivesPage.defaultProps = {
     scheduled: [],
     page: 0,
     pagesTotal: 0,
-    onPageChange: () => {}
+    onPageChange: () => {},
+    onStart: () => {}
 }
 
 export default IncomingRetrospectivesPage;

@@ -45,6 +45,9 @@ import RetroDesign from '../extension/RetroDesign';
 import { RetrospectiveUpdateFormModel } from '../components/forms/RetrospectiveUpdateForm';
 import PlanningItemPayload from '../models/live/payloads/PlanningItemPayload';
 import mapEstimation from './mapEstimation';
+import AnswerPayload from '../models/live/payloads/AnswerPayload';
+import { ActionItemFormModel } from '../components/forms/ActionItemForm';
+import ActionItemModel from '../models/retrospective/ActionItemModel';
 
 export const mapper = createMapper({
     name: 'auto-mapper',
@@ -189,4 +192,38 @@ mapper.createMap(PlanningItemPayload, PlanningItem)
     .forMember(
         (dest) => dest.estimation,
         mapFrom((src) => mapEstimation(src.estimation))
+    );
+mapper.createMap(AnswerPayload, Answer)
+    .forMember(
+        (dest) => dest.children,
+        mapFrom(() => [])
+    )
+    .forMember(
+        (dest) => dest.content,
+        mapFrom(() => '')
+    )
+    .forMember(
+        (dest) => dest.votes,
+        mapFrom(() => 0)
+    );
+mapper.createMap(ActionItemFormModel, ActionItemModel)
+    .forMember(
+        (dest) => dest.dueDate,
+        mapFrom((src) => {
+            console.log(src.dueDate);
+            return src.dueDate != null ? src.dueDate.format('YYYY-MM-DD HH:mm:ss') : null
+        })
+    )
+    .forMember(
+        (dest) => dest.assigneeId,
+        mapFrom((src) => src.assignee?.userId)
+    );
+mapper.createMap(ActionItemFormModel, ActionItemUpdateModel)
+    .forMember(
+        (dest) => dest.dueDate,
+        mapFrom((src) => src.dueDate != null ? src.dueDate.format('YYYY-MM-DD HH:mm:ss') : null)
+    )
+    .forMember(
+        (dest) => dest.assigneeId,
+        mapFrom((src) => src.assignee?.userId)
     );

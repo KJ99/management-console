@@ -80,7 +80,8 @@
             }
         },
         "meetups": {
-            "planning" : "/app/meetups/planning"
+            "planning" : "/app/meetups/planning",
+            "retro" : "/app/meetups/retrospective"
         }
     }
 }

@@ -52,5 +52,24 @@
     "item-completed": "Completed",
     "action-mark-completed": "Mark as completed",
     "report-fail": "Could not download a report",
-    "report-title": "$1 - $2 report"
+    "report-title": "$1 - $2 report",
+    "live": {
+        "page-title": "Retro Live",
+        "finish": "Finish",
+        "next-step": "Next",
+        "answer": "Answer",
+        "vote": "Discuss & Vote",
+        "summarize": "Summarize",
+        "start-timer": "Start Timer",
+        "action-items": "Actions",
+        "answers-list": "Answers",
+        "edit-action-title": "Edit Action",
+        "create-action": "Create Action",
+        "completed": "Hurray! You have completed $1 retrospective!",
+        "see-results": "See results",
+        "load-fail": "Could not load data",
+        "member-join": "Member $1 $2 has joined the session",
+        "member-left": "Member $1 $2 has left the session",
+        "connected": "Connected"
+    }
 }

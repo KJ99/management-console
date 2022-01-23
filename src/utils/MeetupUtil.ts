@@ -1,4 +1,5 @@
 import planningConfig from '../infrastructure/clients/planning-poker/config';
+import retroConfig from '../infrastructure/clients/retro-helper/config';
 import joinUrl from 'url-join';
 import { preparePath } from './PathUtil';
 import { Client, IMessage } from '@stomp/stompjs';
@@ -10,12 +11,24 @@ import MessageType from '../extension/MessageType';
 import { ClassConstructor, instanceToPlain, plainToInstance } from 'class-transformer';
 import MemberJoinMessage from '../models/live/messages/MemberJoinMessage';
 import { format } from './ObjectFormatter';
+import RetroStatusMessage from '../models/live/messages/RetroStatusMessage';
+import AnswerMessage from '../models/live/messages/AnswerMessage';
+import RetroCompletedMessage from '../models/live/messages/RetroCompletedMessage';
 
 const DefaultPublishDestination = '/command';
 
 export const getPlanningLiveClient = (key: string) => {
     const host = planningConfig.liveHost;
     const endpoint = planningConfig.endpoints.live.base;
+    const client = new Client();
+    client.brokerURL = preparePath(joinUrl(host, endpoint), null, { key });;
+
+    return client;
+}
+
+export const getRetroLiveClient = (key: string) => {
+    const host = retroConfig.liveHost;
+    const endpoint = retroConfig.endpoints.live.base;
     const client = new Client();
     client.brokerURL = preparePath(joinUrl(host, endpoint), null, { key });;
 
@@ -80,6 +93,16 @@ export const parseMessageByType = (message: IMessage) => {
             break;
         case MessageType[MessageType.PLANNING_COMPLETED]:
             result = plainToInstance(MemberJoinMessage, json);
+            break;
+        case MessageType[MessageType.STATUS_CHANGED]:
+            result = plainToInstance(RetroStatusMessage, json);
+            break;
+        case MessageType[MessageType.ANSWER_CREATED]:
+        case MessageType[MessageType.ANSWER_DELETED]:
+            result = plainToInstance(AnswerMessage, json);
+            break;
+        case MessageType[MessageType.RETRO_FINISHED]:
+            result = plainToInstance(RetroCompletedMessage, json);
             break;
         default:
             result = plainToInstance(MemberJoinMessage, json);
