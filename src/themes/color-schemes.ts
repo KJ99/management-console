@@ -20,16 +20,16 @@ export const Desk: ColorScheme ={
 }
 
 export const Grassland: ColorScheme ={
-    primary: '#fa32df',
+    primary: '#04c259',
+    secondary: '#0a8f45',
     primaryText: '#f8f9fa',
-    secondary: '#d92bc1',
     secondaryText: '#f8f9fa'
 }
 
 export const Unicorn: ColorScheme ={
-    primary: '#04c259',
+    primary: '#fa32df',
     primaryText: '#f8f9fa',
-    secondary: '#0a8f45',
+    secondary: '#d92bc1',
     secondaryText: '#f8f9fa'
 }
 
